@@ -1,0 +1,10 @@
+{
+    "words":[
+        {"text":"I went to London and now i cant breath", "keywords" : ["London","breath"]},
+        {"text":"On my face i have a big rash","keywords":["face","rash"]},
+        {"text":"theres a load of spots on my shoulder", "keywords" : ["spots","shoulder"]},
+        {"text":"my tie was too tight and i cut my neck","keywords":["tie","neck"]},
+        {"text":"the rain got in my boot and my foot hurts","keywords":["rain","boot","foot"]},
+        {"text":"I have a fork stuck in my leg", "keywords":["fork","leg"]}
+    ]
+}

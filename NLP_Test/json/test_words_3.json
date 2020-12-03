@@ -1,0 +1,10 @@
+{
+    "words":[
+        {"text":"i have hypothermia", "keywords" : ["hypothermia"]},
+        {"text":"I burnt my nose","keywords":["burnt","nose"]},
+        {"text":"my head fell off", "keywords" : ["head"]},
+        {"text":"three cars ran me over","keywords":["cars"]},
+        {"text":"I think my arm is broken","keywords":[ "arm","broken" ]},
+        {"text":"My mother stabbed me", "keywords":["mother","stabbed","me"]}
+    ]
+}

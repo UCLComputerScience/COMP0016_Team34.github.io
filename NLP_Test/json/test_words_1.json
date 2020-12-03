@@ -1,0 +1,13 @@
+{
+    "words":[
+        {"text":"My mother fell down the stairs", "keywords" : ["mother","stairs"]},
+        {"text":"I played football and now by knee hurts","keywords":["football","knee"]},
+        {"text":"I have a headache", "keywords" : ["headache"]},
+        {"text":"I went shopping and now my toe aches","keywords":["shopping","toe"]},
+        {"text":"yesterday i went to my friends house and hit my head","keywords":[ "friends house", "yesterday", "head" ]},
+        {"text":"I went to the moon and hit my nose", "keywords":["moon","nose"]},
+        {"text":"Later i flew my bird to the sky","keywords":["bird","sky"]}
+    ]
+}
+
+

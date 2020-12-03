@@ -1,0 +1,12 @@
+{
+    "words":[
+        {"text":"I have COVID", "keywords" : ["COVID"]},
+        {"text":"I ate a strawberry and i'm allergic","keywords":["strawberry","allergic"]},
+        {"text":"I dropped a brick on my foot", "keywords" : ["brick","foot"]},
+        {"text":"my cat bit me","keywords":["cat"]},
+        {"text":"I was hit by a car","keywords":[ "car" ]},
+        {"text":"There was a pig and it hit me", "keywords":["pig"]}
+    ]
+}
+
+
