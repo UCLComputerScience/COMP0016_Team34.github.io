@@ -73,12 +73,12 @@ We received the results from the survey:
   
 We made some initial sketches of the user interface and how system features could be implemented. We created some ideas of a graphical queue.
   
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_0035%20(1).png)
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_20201102_121423%20(1).jpg)
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-1.png)
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-2.png)
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-3.png)
-[GitHub](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-4.png)
+[Sketch_image_1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_0035%20(1).png)
+[Sketch_image_2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_20201102_121423%20(1).jpg)
+[Sketch_image_3.1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-1.png)
+[Sketch_image_3.2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-2.png)
+[Sketch_image_3.3](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-3.png)
+[Sketch_image_3.4](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-4.png)
   
 Using the sketches, we began working on some initial prototypes:
   
