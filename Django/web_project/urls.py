@@ -21,7 +21,7 @@ from web_project import views
 
 urlpatterns = [
     path("", include("hello.urls")),
-    path("admin/", admin.site.urls),  # Activates the admin interface
+    #path("admin/", admin.site.urls),  # Activates the admin interface
     path("time/",views.current_datetime)
 ]
 
