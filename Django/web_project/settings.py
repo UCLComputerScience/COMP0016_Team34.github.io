@@ -32,6 +32,7 @@ DEBUG = True
 # a specific host, you must also add 'localhost' and/or '127.0.0.1' for local
 # debugging (which are enabled by default when ALLOWED_HOSTS is empty.)
 ALLOWED_HOSTS = [
+    'django-knhjzaotmvmng.azurewebsites.net'
     #'localhost',
     #'127.0.0.1'
     #'vscode-django-tutorial.azurewebsites.net'  # Sample name only!
