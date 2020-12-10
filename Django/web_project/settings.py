@@ -33,6 +33,7 @@ DEBUG = False
 # debugging (which are enabled by default when ALLOWED_HOSTS is empty.)
 ALLOWED_HOSTS = [
     'localhost',
+    'https://django-knhjzaotmvmng.azurewebsites.net'
     #'127.0.0.1'
     #'vscode-django-tutorial.azurewebsites.net'  # Sample name only!
 ]
