@@ -7,7 +7,7 @@ const ms = require('./ms.js');
 // accessed 30/11/20
 const { TextAnalyticsClient, AzureKeyCredential } = require("@azure/ai-text-analytics");
 
-const key = '58c30c4104024602a9b2b73e94d1de5a';
+const key = 'key';
 const endpoint = 'https://nlp-test-ms.cognitiveservices.azure.com/';
 
 const client = new TextAnalyticsClient(endpoint,  new AzureKeyCredential(key));

@@ -8,9 +8,9 @@ const ibm = require('./ibm.js');
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
   version: '2020-08-01',
   authenticator: new IamAuthenticator({
-    apikey: 'QpIyaG5CHxp8RfwrNWeiQ74-UNEQml2x05cDvAZg8wjK',
+    apikey: 'key',
   }),
-  serviceUrl: 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/364e2036-774f-430b-b664-507bb18f5abe',
+  serviceUrl: 'url',
 });
 
 // Based on code from https://cloud.ibm.com/apidocs/natural-language-understanding?code=node#keywords

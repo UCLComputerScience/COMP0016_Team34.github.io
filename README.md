@@ -73,7 +73,12 @@ We received the results from the survey:
   
 We made some initial sketches of the user interface and how system features could be implemented. We created some ideas of a graphical queue.
   
->image
+[Sketch_image_1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_0035%20(1).png)
+[Sketch_image_2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_20201102_121423%20(1).jpg)
+[Sketch_image_3.1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-1.png)
+[Sketch_image_3.2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-2.png)
+[Sketch_image_3.3](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-3.png)
+[Sketch_image_3.4](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-4.png)
   
 Using the sketches, we began working on some initial prototypes:
   
@@ -81,25 +86,25 @@ Prototype 1:
 >  User is sent an SMS message which leads them to a welcome sreen where they input identification details and some information about the severity of their issue. The caller is then placed in a queue and can add some information about their problem, while they wait, using their microphone. The patient can then be selected to be called by the receptionist and, after the call, may provide feedback on the call quality.
   The receptionist can see all callers along with a colour coded view of the callers' problem descriptions. They have the option to call each patient with a video call. During the call they can view the patient's problem description and have the option to pass on the patient to a physician i.e. dermatologist, pharmacist, nurse, GP etc.
 
-> image
+[Initial_prototype](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Initial%20Prototype%20(1).png)
 
-Prototype 2:
+Iteration 1:
 >  Removed video options, now just audio calls. The welcome screen was also removed since it slows down the process too much - patients are calling for urgent requests and increasing the work to do so can be annoying. Also removed the option to state how 'severe' the patients' problems are. Patients are calling because they feel their problem is severe so including this feature may be, ultimately, useless as there is no sense of relativity amongst patients' problems.
   Removed colour coding of descriptions for receptionists and instead chose to highlight key words to ease receptionists job of scanning through patients' problems.
   
-> image
+  
 
-Prototype 3:
+Iteration 2:
 >  Users can now choose from a selection of flags to change their language options. The microphone option during the wait in queue was removed and changed to a textbox option which allows a more accurate a language-free description - people are more articualte over text and transcription accuracy is improved drastically. However, to ensure the patient does not add too much information for the receptionist to get through quickly, we added a word limit to the textbox. The feeback page at at the end of the call was also removed to improve simplicity and useability for the user.
   The receptionist view was also simplified to match changes.
 
-> image
+[Prototype_2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/PrototypeV2%20(1).png)
 
-Prototype 4:
+Iteration 3:
 >  We decided to add back the microphone for patients to give their problem description and we would use speech-text to convey this to the receptionist. This is because it is important to detect crying/shouting over audio; this would be done using IBM's tone analyser. The callers now also have the option to turn on video during their call so that receptionists do not feel 'exposed' or 'unequal',as well as a mute option for the audio. Patients can no longer see their queue position; the system will now mimic a waiting room where the patient can see other patients in the waiting room but cannot know their exact position in the queue. This is to allow receptionists to choose the order they select patients to be called without upsetting the patients that were overtaken if the receptionist chooses a patient that came after them.
   Receptionists were also given the option to send patients to a physician immediately, without having to call the patient first.
   
-> image
+[Prototype_3](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/PrototypeV3.png)
 
 
 
@@ -125,7 +130,7 @@ The client also requested some kind of data recording and analysis e.g. graphs a
 
 Added optional DOB entering to system which can be used for authenticating patients (using link to NHS FHIR system - flag at-risk patients)
 
-> image
+[Final_Prototype](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Final_Prototype.PNG)
   
   
   
