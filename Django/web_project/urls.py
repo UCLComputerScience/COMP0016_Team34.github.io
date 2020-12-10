@@ -17,12 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
-import views
+import django.views
 
 urlpatterns = [
     path("", include("hello.urls")),
     path("admin/", admin.site.urls),  # Activates the admin interface
-    path("time/",views.current_datetime,name="time")
+    path("time/",django.views.current_datetime,name="time")
 ]
 
 urlpatterns += staticfiles_urlpatterns()
