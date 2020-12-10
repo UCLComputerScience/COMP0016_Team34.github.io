@@ -1,0 +1,3 @@
+[submodule "djangoapp"]
+	path = djangoapp
+	url = ./djangoapp
