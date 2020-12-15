@@ -17,4 +17,4 @@ def get_home(request):
     return HttpResponse(html)
 
 def get_JSON(request):
-    return JsonResponse(Caller("Me","11/6/2001").to_JSON(),safe=False)
+    return JsonResponse(Caller("Bob Smith","01/01/2000").to_JSON(),safe=False)
