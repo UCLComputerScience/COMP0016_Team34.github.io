@@ -1,6 +1,6 @@
 import datetime
-
 from django.db import models
+from django.db.models.base import Model
 from django.utils import timezone
 
 # Create your models here.
@@ -22,3 +22,9 @@ from django.utils import timezone
 #     votes = models.IntegerField(default=0)
 #     def __str__(self):
 #         return self.choice_text
+
+# class CallerModel(models.Model):
+#     def __str__():
+#         return {"hello":"hi"}
+
+

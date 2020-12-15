@@ -6,8 +6,10 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-#from .models import Choice, Question
+# from .models import CallerModel
 # import datetime
+
+from .Caller import Caller
 
 
 def get_home(request):
@@ -15,5 +17,4 @@ def get_home(request):
     return HttpResponse(html)
 
 def get_JSON(request):
-    x = {"x":["hello"]}
-    return JsonResponse("hello",safe=False)
+    return JsonResponse(Caller("Me","11/6/2001").to_JSON(),safe=False)
