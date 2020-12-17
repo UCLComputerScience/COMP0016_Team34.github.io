@@ -12,9 +12,9 @@ from django.utils import timezone
 from .Caller import Caller
 
 
+
 def get_home(request):
-    html = "<html><p>hello</p></html>"
-    return HttpResponse(html)
+    return render(request,"caller/index.html")
 
 def get_JSON(request):
     c = Caller("Bob Smith","01/01/2000");
