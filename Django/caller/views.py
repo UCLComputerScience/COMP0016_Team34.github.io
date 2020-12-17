@@ -17,4 +17,6 @@ def get_home(request):
     return HttpResponse(html)
 
 def get_JSON(request):
-    return JsonResponse(Caller("Bob Smith","01/01/2000").to_JSON(),safe=False)
+    c = Caller("Bob Smith","01/01/2000");
+    c.add_description("My Knee Hurts")
+    return JsonResponse(c.to_JSON(),safe=False)
