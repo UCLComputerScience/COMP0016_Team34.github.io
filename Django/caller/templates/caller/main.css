@@ -1,0 +1,38 @@
+body{
+	background: linear-gradient(to bottom, #33ccff 0%, #0066ff 100%);
+}
+
+.dark1{
+	background:#999;
+	color:white;
+	display: inline;
+}
+
+.dark2{
+	background:#666;
+	color:white;
+}
+
+.dark3{
+	background:#333;
+	color:white;
+}
+
+
+
+.introtext {
+	display: inline;
+	font-size: 50px;
+	font-weight: 5px;
+}
+
+img{
+	vertical-align: middle;
+
+}
+
+.center {
+  display: block;
+  margin:auto;
+  width: 50%;
+}
