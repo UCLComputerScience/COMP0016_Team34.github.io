@@ -97,41 +97,17 @@
 						</script>
 
 						
-						<form onSubmit="WriteToFile(this)">
-						<label>First name:</label>
-						<input type="text" name="FirstName" id="firstName" size="20">
-						 
-						<label>Last name: </abel>
-						<input type="text" name="LastName" id="lastName" size="20">
-						 
-						<input type="submit" value="submit">
+						<form action="/processInfo/" method = "post">
+							{% csrf_token %}
+    						{{ form }}
+    						<input type="submit" value="Submit">
 						</form>
 					</div>
 					<div class="col"></div>
 				</div>				
 			</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col"></div>
-					<div class="col-12">
-						<div class="introtext">
-							Enter DOB (optional):
-						</div>
-						<script type="text/javascript">
-						</script>
 
-						
-						<form onSubmit="WriteToFile(this)">
-						<label>DD/MM/YYYY:</label>
-						<input type="text" name="DOB" id="DOB" size="20">
-						 
-						<input type="submit" value="submit">
-						</form>
-					</div>
-					<div class="col"></div>
-				</div>				
-			</div>
 
 
 		</header>
