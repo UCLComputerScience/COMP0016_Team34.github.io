@@ -164,5 +164,4 @@ We had a call with the clients to review and made some changes to the system:
 - Finished server-side work using Django and Azure
 - Built HTML,CSS webpage for callers and updated aesthetics
 - Python-based client for receptionists completed
-  
-  
+- Updated NLP markdown
