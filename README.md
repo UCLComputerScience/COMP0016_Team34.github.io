@@ -132,6 +132,37 @@ Added optional DOB entering to system which can be used for authenticating patie
 
 [Final_Prototype](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Final_Prototype.PNG)
   
-  
+
+
+### 03-12
+
+We received the Microsoft Azure license to host our server and API licenses for our program. We also sought to finalise the features of the system.
+These features included:
+- Language Compatibility
+- Sending an SMS to the patient
+- Tone analysis of the patient's call and problem description
+- Keyword highlighting of the patient's problem description
+- Calling the patient on some kind of video calling system
+- Actions performed on the patient, such as sending to a physician - and then a check for the physicians to receive the intended patient
+- Collecting user data from callers and receptionists to review by bosses to improve efficiency
+
+We also came up with a plan for the program to begin our first implementation and began building a client-side webpage for the callers.
+
+
+
+### 09-12
+We had a call with the clients to review and made some changes to the system:
+- No 3D queue - no longer needed
+- System uses DOB and Name to look up patient in the FHIR database and flag vulnerable patients
+- Use 'Zoom' room for patient calls
+- Rather than sending patients to the same, single waiting room, patients are given a timeslot for when they would be seen - patients are given the ability to specify available/unavailable times
+- All patient interaction is to be logged for confidentiality purposes - Call -> Receptionist -> GP    is one single interaction
+
+
+
+### 12-01
+- Finished server-side work using Django and Azure
+- Built HTML,CSS webpage for callers and updated aesthetics
+- Python-based client for receptionists completed
   
   
