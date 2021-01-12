@@ -1,6 +1,6 @@
 **<u>NLP Keyword Extraction</u>**
 
-3 NLP API's were used to extract keywords from a set of tests. They were chosen as they are from large companies and has easy node.js support for their APIs. JavaScript in Node was used to write the tests (see below).
+Natural language keyword detecroes will be used to select keywords from the user input. This will allow for faster recognition of key issues by the receptionist and make it easier to select who has an immediate problem. 3 NLP API's were used to extract keywords from a set of tests. They were chosen as they are from large companies and has easy node.js support for their APIs. JavaScript in Node was used to write all the tests for consistenncy (see below).
 
 | API       | Correct Matches (out of 25) | Price                                                        |      |
 | --------- | --------------------------- | ------------------------------------------------------------ | ---- |
