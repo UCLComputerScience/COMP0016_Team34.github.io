@@ -29,8 +29,12 @@ def get_home(request):
 def get_JSON(request):
     json = "{'callers':["
     for caller in callers:
-        json+=str(caller.to_JSON())
-        json +=","
+        caller_json = caller.to_JSON()
+        print(len(caller_json))
+        if(len(caller_json) != 1):
+            json+=str(caller_json)
+            json +=","
+            caller.clear_changes()
     json= json[:len(json)-1]
     json+="]}"
     return JsonResponse(json,safe=False)
@@ -43,5 +47,15 @@ def get_static_JSON(request):
 def clear_data(request):
     callers.clear()
     return HttpResponseRedirect("/processInfo/") 
+
+def get_All_JSON(request):
+    json = "{'callers':["
+    for caller in callers:
+        json+=str(caller.get_All())
+        json +=","
+        caller.clear_changes()
+    json= json[:len(json)-1]
+    json+="]}"
+    return JsonResponse(json,safe=False)
 
         
