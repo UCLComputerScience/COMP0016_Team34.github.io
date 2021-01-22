@@ -39,4 +39,9 @@ def get_static_JSON(request):
     c = Caller("Bob Smith","11/1/2001")
     c.add_description("My leg is broken")
     return JsonResponse(c.to_JSON(),safe=False)
+
+def clear_data(request):
+    callers.clear()
+    return HttpResponseRedirect("/processInfo/") 
+
         
