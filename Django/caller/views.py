@@ -22,7 +22,7 @@ def get_home(request):
         if form.is_valid():
             data = form.cleaned_data
             caller_id = uuid.uuid4().int # generates a unique id
-            response = HttpResponseRedirect("/getJSON/")
+            response = HttpResponseRedirect("/queue/")
             response.set_cookie("id",str(caller_id))
             c = Caller(data["firstname"]+" "+data["surname"],data["dob"],caller_id)
             callers[str(caller_id)] = c
@@ -32,6 +32,7 @@ def get_home(request):
     return render(request,"caller/index.html",{"form":form})
 
 def get_JSON(request):
+    to_remove = []
     json = "{'callers':["
     for caller in callers:
         caller_json = callers[caller].to_JSON()
@@ -39,8 +40,12 @@ def get_JSON(request):
             json+=str(caller_json)
             json +=","
             callers[caller].clear_changes()
+            if "'active': False" in json:
+                to_remove.append(caller)
     json= json[:len(json)-1]
     json+="]}"
+    for caller in to_remove:
+        del callers[caller]
     return JsonResponse(json,safe=False)
 
 def get_static_JSON(request):
