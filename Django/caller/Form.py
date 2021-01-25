@@ -5,3 +5,6 @@ class Dataform(forms.Form):
     surname = forms.CharField(label='surname')
     dob = forms.CharField(label='date of birth DD/MM/YYY')
 
+class IDform(forms.Form):
+    id = forms.CharField(label='id')
+

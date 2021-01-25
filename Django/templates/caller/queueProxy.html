@@ -1,0 +1,23 @@
+<html>
+    <body>
+        {{id}}
+    </body>
+
+    
+    <form id="id_form" action="../queue/" method = "post" hidden>
+        {% csrf_token %}
+    	{{ form }}
+	</form>
+	
+    <script>
+        setInterval(function(){ 
+            //document.getElementById("id_form").setAttribute('id',{{id}});
+            document.getElementById('id_form').submit();
+            console.log({{id}});
+
+        }, 5000);
+	</script>
+
+</html>
+
+

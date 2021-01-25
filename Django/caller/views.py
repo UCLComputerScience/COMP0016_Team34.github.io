@@ -10,18 +10,23 @@ from django.utils import timezone
 # import datetime
 
 from .Caller import Caller
-from .Form import Dataform
+from .Form import Dataform, IDform
 
-callers = []
+import uuid
+
+callers = {}
 
 def get_home(request):
     if request.method == "POST":
         form = Dataform(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            c = Caller(data["firstname"]+data["surname"],data["dob"])
-            callers.append(c)
-            return HttpResponseRedirect("/getJSON/") 
+            caller_id = uuid.uuid4().int # generates a unique id
+            response = HttpResponseRedirect("/getJSON/")
+            response.set_cookie("id",str(caller_id))
+            c = Caller(data["firstname"]+" "+data["surname"],data["dob"],caller_id)
+            callers[str(caller_id)] = c
+            return response
     else:
         form = Dataform()
     return render(request,"caller/index.html",{"form":form})
@@ -29,12 +34,11 @@ def get_home(request):
 def get_JSON(request):
     json = "{'callers':["
     for caller in callers:
-        caller_json = caller.to_JSON()
-        print(len(caller_json))
+        caller_json = callers[caller].to_JSON()
         if(len(caller_json) != 1):
             json+=str(caller_json)
             json +=","
-            caller.clear_changes()
+            callers[caller].clear_changes()
     json= json[:len(json)-1]
     json+="]}"
     return JsonResponse(json,safe=False)
@@ -51,11 +55,25 @@ def clear_data(request):
 def get_All_JSON(request):
     json = "{'callers':["
     for caller in callers:
-        json+=str(caller.get_All())
+        json+=str(callers[caller].get_All())
         json +=","
-        caller.clear_changes()
+        callers[caller].clear_changes()
     json= json[:len(json)-1]
     json+="]}"
     return JsonResponse(json,safe=False)
 
-        
+def get_queue(request):
+    print(callers)
+    if request.method == "POST":
+        form = IDform(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            caller_id = data["id"]
+            callers[caller_id].update_time()
+            print(caller_id)
+    
+    caller_id = request.COOKIES.get('id')
+    form = IDform(initial={'id': caller_id})
+    return render(request,"caller/queueProxy.html",{"id":caller_id,"form":form})
+
+
