@@ -74,9 +74,12 @@ def get_queue(request):
         if form.is_valid():
             data = form.cleaned_data
             caller_id = data["id"]
-            callers[caller_id].update_time()
-            print(caller_id)
-    
+            try:
+                callers[caller_id].update_time()
+            except:
+                return HttpResponseRedirect("..") 
+
+                
     caller_id = request.COOKIES.get('id')
     form = IDform(initial={'id': caller_id})
     return render(request,"caller/queueProxy.html",{"id":caller_id,"form":form})
