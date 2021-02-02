@@ -68,15 +68,14 @@ def get_All_JSON(request):
     return JsonResponse(json,safe=False)
 
 def get_queue(request):
+    print(callers)
     if request.method == "POST":
         form = IDform(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             caller_id = data["id"]
-            try:
-                callers[caller_id].update_time()
-            except:
-                return HttpResponseRedirect("..") 
+            callers[caller_id].update_time()
+            print(caller_id)
     
     caller_id = request.COOKIES.get('id')
     form = IDform(initial={'id': caller_id})
