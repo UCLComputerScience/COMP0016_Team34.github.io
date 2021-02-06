@@ -8,3 +8,5 @@ class Dataform(forms.Form):
 class IDform(forms.Form):
     id = forms.CharField(label='id')
 
+class DescForm(forms.Form):
+    desc = forms.CharField(label="description")

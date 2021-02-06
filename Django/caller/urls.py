@@ -10,5 +10,6 @@ urlpatterns = [
     path('staticInfo/',views.get_static_JSON, name='staticInfo'),
     path('clearData/',views.clear_data, name='clearData'),
     path('getAll/',views.get_All_JSON, name='getAll'),
-    path('queue/',views.get_queue, name='queue')
+    path('queue/',views.get_queue, name='queue'),
+    path('updateCaller/',views.update_caller_time,name='updateCallerTime'),
 ]
