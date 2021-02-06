@@ -37,3 +37,6 @@ class Caller():
     
     def get_All(self):
         return self.__dict__
+    
+    def get_changes(self):
+        return self.changes
