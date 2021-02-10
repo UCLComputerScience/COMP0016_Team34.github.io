@@ -106,9 +106,10 @@ def update_caller_time(request):
 def get_changes(request):
     json = "{'callers':["
     for caller in callers:
-        changes = str(callers[caller].get_changes())
-        json += str(callers[caller].get_changes())
-        json += ","
+        changes = callers[caller].get_changes()
+        if(len(changes) != 1):
+            json += str(callers[caller].get_changes())
+            json += ","
         callers[caller].clear_changes()
     json = json[:len(json)-1]
     json += "]}"
