@@ -70,18 +70,18 @@ We received the results from the survey:
   
   
 ### 02-11
-  
+
 We made some initial sketches of the user interface and how system features could be implemented. We created some ideas of a graphical queue.
-  
+
 [Sketch_image_1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_0035%20(1).png)
 [Sketch_image_2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/IMG_20201102_121423%20(1).jpg)
 [Sketch_image_3.1](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-1.png)
 [Sketch_image_3.2](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-2.png)
 [Sketch_image_3.3](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-3.png)
 [Sketch_image_3.4](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Hci%20draft-4.png)
-  
+
 Using the sketches, we began working on some initial prototypes:
-  
+
 Prototype 1:
 >  User is sent an SMS message which leads them to a welcome sreen where they input identification details and some information about the severity of their issue. The caller is then placed in a queue and can add some information about their problem, while they wait, using their microphone. The patient can then be selected to be called by the receptionist and, after the call, may provide feedback on the call quality.
   The receptionist can see all callers along with a colour coded view of the callers' problem descriptions. They have the option to call each patient with a video call. During the call they can view the patient's problem description and have the option to pass on the patient to a physician i.e. dermatologist, pharmacist, nurse, GP etc.
@@ -91,7 +91,7 @@ Prototype 1:
 Iteration 1:
 >  Removed video options, now just audio calls. The welcome screen was also removed since it slows down the process too much - patients are calling for urgent requests and increasing the work to do so can be annoying. Also removed the option to state how 'severe' the patients' problems are. Patients are calling because they feel their problem is severe so including this feature may be, ultimately, useless as there is no sense of relativity amongst patients' problems.
   Removed colour coding of descriptions for receptionists and instead chose to highlight key words to ease receptionists job of scanning through patients' problems.
-  
+
   
 
 Iteration 2:
@@ -103,7 +103,7 @@ Iteration 2:
 Iteration 3:
 >  We decided to add back the microphone for patients to give their problem description and we would use speech-text to convey this to the receptionist. This is because it is important to detect crying/shouting over audio; this would be done using IBM's tone analyser. The callers now also have the option to turn on video during their call so that receptionists do not feel 'exposed' or 'unequal',as well as a mute option for the audio. Patients can no longer see their queue position; the system will now mimic a waiting room where the patient can see other patients in the waiting room but cannot know their exact position in the queue. This is to allow receptionists to choose the order they select patients to be called without upsetting the patients that were overtaken if the receptionist chooses a patient that came after them.
   Receptionists were also given the option to send patients to a physician immediately, without having to call the patient first.
-  
+
 [Prototype_3](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/PrototypeV3.png)
 
 
@@ -131,7 +131,7 @@ The client also requested some kind of data recording and analysis e.g. graphs a
 Added optional DOB entering to system which can be used for authenticating patients (using link to NHS FHIR system - flag at-risk patients)
 
 [Final_Prototype](https://github.com/UCLComputerScience/COMP0016_Team34.github.io/blob/main/Final_Prototype.PNG)
-  
+
 
 
 ### 03-12
@@ -165,3 +165,26 @@ We had a call with the clients to review and made some changes to the system:
 - Built HTML,CSS webpage for callers and updated aesthetics
 - Python-based client for receptionists completed
 - Updated NLP markdown
+
+
+
+
+
+### Code
+
+#### Server 
+
+The Callers data is stored and requests are handled by a python Django server. This was chosen for its simplicity to use on a Microsoft Azure server and also its ease to set up. The callers data is sent to the server using HTML forms which can be created using django built in form classes. These are send using https and the POST method to help give better security for the data. When the caller is sent to the queue they are given a box to send a description to the server and this is added on to the class holding that caller. The callers are identified by giving them a unique id generated using pythons UUID module. This is stored in a cookie on the callers browser and send with all requests inorder to detect which caller is which. 
+
+Similarly there needs to be a method to detect when a caller leaves the queue, due to the statelessness of the HTTP(S)<sup>1</sup> it is not simple to have a method that will detect whenever someone leaves a site. eg the Javascript onunload event has times that it would not fire eg when the callers internet connection fails. The intitial solution used was to have a javascript function run every 5 seconds which send a form containing the callers id to the server. When the callers information was requested from the server by the receptionist if this message hadnt been recorded in the last 10 minutes then the server will assume this caller has left the queue. However this solution reloaded the page each time the form was sent and therefore any text in the input box for the callers description waas removed. A better solution was found which involved using a ajax and JQuery function which ran asynchronously and sent a post request with the callers id, this is then used in the same was as before . This does not reload the page and therefore is less intrusive than the first method.
+
+When a receptionist's client requests the data for the patients only the changes (as a JSON file) since the last time the data was sent is sent. When a caller first connects all their information - name, date of birth etc is sent along with the random id. However the next time the data is requested if nothing has changed then an empty JSON list is sent. If a caller adds a description or updates their information the changed data is added to the JSON to be sent as well as the id of the given user. When a caller is deemed to have left the call then a message containing the id is sent as well as a message saying that this user has left so the receptionist can be updated accordingly. 
+
+
+
+
+
+#### References
+
+1. Developer.mozilla.org. 2021. *An overview of HTTP - HTTP | MDN*. [online] Available at: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#http_is_stateless_but_not_sessionless> [Accessed 12 February 2021].
+
