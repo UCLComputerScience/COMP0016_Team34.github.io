@@ -12,6 +12,7 @@ class Caller():
         self.active = True
         self.last_active = time.time()
         self.TIME_TO_DIE = 30 #30 for testing 600 #caller will die if last active time was 600 seconds ago (10 mins)
+        
 
     
     def to_JSON(self):
