@@ -167,7 +167,10 @@ We had a call with the clients to review and made some changes to the system:
 - Updated NLP markdown
 
 
-
+### 13-02
+- Finished all the functions on the receptionist Client
+- The current Client is only runnable with JVM, so after improvements, it should be built into an exe file
+- Requires suggestions from clients
 
 
 ### Code
