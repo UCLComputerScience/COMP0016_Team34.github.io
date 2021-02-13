@@ -154,7 +154,7 @@ public class MainPage extends JFrame implements ActionListener {
             Matcher regexMatcher = regex.matcher(response);
             while(regexMatcher.find()){
                 String current = regexMatcher.group();
-                if(current.contains("description") && !current.contains("name")){
+                if(current.contains("'description'") && !current.contains("'name'")){
                     //case 1: the caller adds a description
                     String id = current.substring(7,current.indexOf("'description'")-2);
                     String description = current.substring(current.indexOf("'description'")+16,current.length()-2);
@@ -165,7 +165,7 @@ public class MainPage extends JFrame implements ActionListener {
                             break;
                         }
                     }
-                }else if(current.contains("active")){
+                }else if(current.contains("'active'")){
                     //case 2: the caller leaves the queue
                     String id = current.substring(7,current.indexOf("'active'")-2);
                     for(Entity y: entities){
@@ -175,7 +175,7 @@ public class MainPage extends JFrame implements ActionListener {
                             break;
                         }
                     }
-                }else if(current.contains("name") && !current.contains("description")){
+                }else if(current.contains("'name'") && !current.contains("'description'")){
                     //case 3: a new caller is added to the queue without the description
                     String name = current.substring(current.indexOf("'name'")+9,current.indexOf("'dob'")-3);
                     String dob = current.substring(current.indexOf("'dob'")+8,current.indexOf("'id'")-3);
