@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class Entity extends JPanel implements ActionListener {
 
@@ -14,10 +15,10 @@ public class Entity extends JPanel implements ActionListener {
     private JButton sendLink = new JButton();
     private JButton sendNurse = new JButton();
     private JButton neglect = new JButton();
-    private static ImageIcon phone = new ImageIcon("D:\\Client\\src\\phone.jpg");
-    private static ImageIcon chain = new ImageIcon("D:\\Client\\src\\chain.jpg");
-    private static ImageIcon nurse = new ImageIcon("D:\\Client\\src\\nurse.jpg");
-    private static ImageIcon cross = new ImageIcon("D:\\Client\\src\\cross.jpg");
+    private static ImageIcon phone = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "phone.jpg");
+    private static ImageIcon chain = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "chain.jpg");
+    private static ImageIcon nurse = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "nurse.jpg");
+    private static ImageIcon cross = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "cross.jpg");
 
     public String getId() {
         return id;

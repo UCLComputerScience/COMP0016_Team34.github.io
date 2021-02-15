@@ -34,13 +34,13 @@ public class MainPage extends JFrame implements ActionListener {
 
         JLabel waiting = new JLabel();
         waiting.setText("callers remaining");
-        waiting.setBounds(70,70,300,55);
+        waiting.setBounds(70,70,400,55);
         waiting.setFont(new Font("Calibri", Font.BOLD  ,35));
         waiting.setForeground(Color.BLACK);
 
         JLabel title = new JLabel();
         title.setText("Q-Vu System");
-        title.setBounds(170,17,350,55);
+        title.setBounds(180,17,200,55);
         title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC ,35));
         title.setForeground(new Color(0xFFFFFF));
 
@@ -52,7 +52,7 @@ public class MainPage extends JFrame implements ActionListener {
 
         JLabel loggedinas = new JLabel();
         loggedinas.setText("Logged in as");
-        loggedinas.setBounds(380,10,220,55);
+        loggedinas.setBounds(380,10,200,55);
         loggedinas.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,35));
         loggedinas.setForeground(new Color(0xFFFFFF));
 
@@ -154,7 +154,7 @@ public class MainPage extends JFrame implements ActionListener {
             Matcher regexMatcher = regex.matcher(response);
             while(regexMatcher.find()){
                 String current = regexMatcher.group();
-                if(current.contains("description") && !current.contains("name")){
+                if(current.contains("'description'") && !current.contains("'name'")){
                     //case 1: the caller adds a description
                     String id = current.substring(7,current.indexOf("'description'")-2);
                     String description = current.substring(current.indexOf("'description'")+16,current.length()-2);
@@ -165,7 +165,7 @@ public class MainPage extends JFrame implements ActionListener {
                             break;
                         }
                     }
-                }else if(current.contains("active")){
+                }else if(current.contains("'active'")){
                     //case 2: the caller leaves the queue
                     String id = current.substring(7,current.indexOf("'active'")-2);
                     for(Entity y: entities){
@@ -175,7 +175,7 @@ public class MainPage extends JFrame implements ActionListener {
                             break;
                         }
                     }
-                }else if(current.contains("name") && !current.contains("description")){
+                }else if(current.contains("'name'") && !current.contains("'description'")){
                     //case 3: a new caller is added to the queue without the description
                     String name = current.substring(current.indexOf("'name'")+9,current.indexOf("'dob'")-3);
                     String dob = current.substring(current.indexOf("'dob'")+8,current.indexOf("'id'")-3);
