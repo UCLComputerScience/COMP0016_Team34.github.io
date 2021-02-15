@@ -34,13 +34,13 @@ public class MainPage extends JFrame implements ActionListener {
 
         JLabel waiting = new JLabel();
         waiting.setText("callers remaining");
-        waiting.setBounds(70,70,300,55);
+        waiting.setBounds(70,70,400,55);
         waiting.setFont(new Font("Calibri", Font.BOLD  ,35));
         waiting.setForeground(Color.BLACK);
 
         JLabel title = new JLabel();
         title.setText("Q-Vu System");
-        title.setBounds(170,17,350,55);
+        title.setBounds(180,17,200,55);
         title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC ,35));
         title.setForeground(new Color(0xFFFFFF));
 
@@ -52,7 +52,7 @@ public class MainPage extends JFrame implements ActionListener {
 
         JLabel loggedinas = new JLabel();
         loggedinas.setText("Logged in as");
-        loggedinas.setBounds(380,10,220,55);
+        loggedinas.setBounds(380,10,200,55);
         loggedinas.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,35));
         loggedinas.setForeground(new Color(0xFFFFFF));
 

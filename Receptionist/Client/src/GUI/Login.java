@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class Login extends JFrame implements ActionListener {
     public static MainPage mainPage;
@@ -11,8 +12,8 @@ public class Login extends JFrame implements ActionListener {
     private final JButton needhelpButton;
     private final JTextField usernameInput;
     private final JPasswordField passwordInput;
-    public static ImageIcon image = new ImageIcon("D:\\Client\\src\\login.png");
-    public static ImageIcon nhs = new ImageIcon("D:\\Client\\src\\nhs.png");
+    public static ImageIcon image = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "login.png");
+    public static ImageIcon nhs = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "nhs.png");
 
     public Login(){
         JLabel nhsIcon = new JLabel();

@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class InvalidDetail extends JFrame {
     public InvalidDetail(){
@@ -29,7 +30,7 @@ public class InvalidDetail extends JFrame {
         line2.setBorder(null);
         line2.setBackground(null);
 
-        ImageIcon warningPic = new ImageIcon("D:\\Client\\src\\warning.png");
+        ImageIcon warningPic = new ImageIcon(System.getProperty("user.dir") + File.separator + "src" + File.separator + "warning.png");
         JLabel warning = new JLabel();
         warning.setIcon(warningPic);
         warning.setBounds(150,0,155,150);
