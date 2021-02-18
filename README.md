@@ -167,10 +167,33 @@ We had a call with the clients to review and made some changes to the system:
 - Updated NLP markdown
 
 
+
+### 03-02
+We had another meeting with the clients, joined by Dean Mohamedally and Atia Rafiq. After a review of the system's progress, some suggestions were made about the system features:
+- The interface should be tailored for mobile use as it will be the primary mode of accessing the system
+- The app should be able to distinguish which surgery the user has called and should work independently for each practise - it is the practice's responsibility to host their own service
+- Speech recognition features could be considered for users to speak in their own language
+- There should be a distinction if the patient needs to just see a nurse/if there is an emergency etc.
+- The description should also include the patients' concern and what they aim to achieve
+- Receptionists should have the ability to send alert statuses to patients that have been waiting too long. However, receptionists should still maintain a policy to only bump people's queue positions if they have an emergency - focus on first come, first serve
+- Let patients know what an 'emergency' is - let the patient know to call 999 if they have any symptoms from a provided list
+  - Signs of a heart attack - pain like a very tight band, heavy weight or squeezing in the centre of your chest or any pain that moves into your jaw or neck
+  - Signs of a stroke - face drooping on one side, can't hold both arms up, difficulty speaking, or weakness or numbness on one side of your body
+  - Severe difficulty breathing - gasping, not being able to get words out, choking or lips turning blue
+  - Heavy bleeding that won't stop - uncontrollable bleeding from any part of your body
+  - Severe injuries - including deep cuts after a serious accident
+  - etc.
+- The system could show some additional NHS related or practice related information for the patient to look at while they are in the queue (e.g. if the patient has mentioned 'cough'/'sore throat' show some health advice regarding these symptoms)
+  - This area could also be used as a news area - make money by hosting advertisements or links to pdf files to download brochures, patient participation groups, community activities, practice website etc.
+- System should have NHS/RCGP/UCL/IBM logos but should specify 'proof of concept' or similar until finally approved
+
+
+
 ### 13-02
 - Finished all the functions on the receptionist Client
 - The current Client is only runnable with JVM, so after improvements, it should be built into an exe file
 - Requires suggestions from clients
+
 
 
 ### Code
