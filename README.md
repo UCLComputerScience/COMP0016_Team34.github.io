@@ -1,7 +1,7 @@
 # COMP0016_Team34.github.io
 
 ## PROJECT BRIEF
->*"A full webservice that enables any GP practice or NHS clinic with a laptop and a webcam to generate a virtualised call queue with real receptionists engaging from home, like waiting to be seen in an actual practice. The service will be activated by a twillio SMS message while you are in a waiting call to activate a link. It will present a virtual view in Unity of a call queue and present real receptionists in the AR environment with chromakeyed or subtracted background projection using streamlabs/OBS technologies and a webcam. It will also export the audio stream questions for team 35 and provide possible FHIR interation for simulating patient records access."*
+>*"A full webservice that enables any GP practice or NHS clinic with a laptop and a webcam to generate a virtualised call queue with real receptionists engaging from their practice or at home, like waiting to be seen in an actual practice. The service will be activated by a twillio SMS message while you are in a waiting call to activate a link. It will present a visualisation of the patient queue and an estimate as to how long the patient will wait to be seen, as well as the ability for patients to provide a quick summary of their query for receptionists to answer them faster. It may also provide possible FHIR interation for simulating patient records access for even greater efficiency and patient attention."*
 
 
 
