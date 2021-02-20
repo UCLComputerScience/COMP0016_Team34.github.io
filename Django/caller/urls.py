@@ -13,4 +13,5 @@ urlpatterns = [
     path('getChanges/',views.get_changes,name='changes'),
     path('queue/',views.get_queue, name='queue'),
     path('updateCaller/',views.update_caller_time,name='updateCallerTime'),
+    path('addURLID/',views.add_url,name="addURLToSend"),
 ]

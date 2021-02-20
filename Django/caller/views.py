@@ -1,5 +1,6 @@
 from json.encoder import JSONEncoder
 from django.http.response import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -18,6 +19,7 @@ from googletrans import Translator
 translator = Translator()
 
 callers = {}
+url_to_send = {}
 
 
 def get_home(request):
@@ -100,6 +102,10 @@ def get_queue(request):
 
 def update_caller_time(request):
     print(callers)
+    caller_id = request.COOKIES.get('id')
+    if(caller_id in url_to_send):
+        url = url_to_send[caller_id]
+        print(url)
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
         try:
@@ -122,3 +128,12 @@ def get_changes(request):
     json = json[:len(json)-1]
     json += "]}"
     return JsonResponse(json, safe=False)
+
+@csrf_exempt
+def add_url(request):
+    if request.method == "POST":
+        url = request.POST['url']
+        caller_id = request.POST['id']
+        url_to_send[caller_id] = url
+    return HttpResponse(status=204)
+# to test curl -X post http://127.0.0.1:8000/addURLID/ -F "id=320493688610939527597112467216073650780" -F "url=google.com"
