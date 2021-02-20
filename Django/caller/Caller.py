@@ -12,6 +12,7 @@ class Caller():
         self.active = True
         self.last_active = time.time()
         self.TIME_TO_DIE = 600 #caller will die if last active time was 600 seconds ago (10 mins)
+        self.language = ''
         
 
     
@@ -38,4 +39,9 @@ class Caller():
     
     def get_All(self):
         return self.__dict__
+    
+    def add_language(self,lang):
+        self.language = lang
+        self.changes['language'] = self.language
+
     

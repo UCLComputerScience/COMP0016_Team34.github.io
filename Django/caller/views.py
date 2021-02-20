@@ -14,6 +14,8 @@ from .Form import Dataform, DescForm
 
 import uuid
 import json
+from googletrans import Translator
+translator = Translator()
 
 callers = {}
 
@@ -80,11 +82,17 @@ def get_queue(request):
     if request.method == "POST":
         form = DescForm(request.POST)
         if form.is_valid():
+            try:
+                lang = request.COOKIES.get('googtrans') #Cookie put in browser by google translate
+            except:
+                lang = '/en/en'
+            callers[caller_id].add_language(lang)
             data = form.cleaned_data
-            callers[caller_id].add_description(data["desc"])
+            desc = translator.translate(data["desc"]).text
+            callers[caller_id].add_description(desc)       
             
-    for caller in callers:
-        print(callers[caller].id, callers[caller].description)
+    # for caller in callers:
+    #     print(callers[caller].id, callers[caller].description)
     form = DescForm()
     return render(request, "caller/queue.html", {"desc_form": form,"id":caller_id})
 
