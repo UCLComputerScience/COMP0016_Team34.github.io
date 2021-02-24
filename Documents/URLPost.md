@@ -1,6 +1,6 @@
 Sending a URl from the receptionist to a caller
 
-The url and id of the caller will be send using a POST request sent with two parameters one named "id" followed by the id of the caller and then "url" followed by the url to send them.
+The url and id of the caller will be send using a POST request sent with two parameters one named "id" followed by the id of the caller and then "url" followed by the url to send them and a description of what the url is
 
 using curl:
 ```BASH
