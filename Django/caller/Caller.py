@@ -11,7 +11,7 @@ class Caller():
         self.changes = {"name":self.name,"dob":self.dob,"id":self.id}
         self.active = True
         self.last_active = time.time()
-        self.TIME_TO_DIE = 5 #caller will die if last active time was 600 seconds ago (10 mins)
+        self.TIME_TO_DIE = 600 #caller will die if last active time was 600 seconds ago (10 mins)
         self.language = ''
         
 

@@ -30,8 +30,13 @@ def get_home(request):
             caller_id = uuid.uuid4().int  # generates a unique id
             response = HttpResponseRedirect("/queue/")
             response.set_cookie("id", str(caller_id))
-            c = Caller(data["firstname"]+" "+data["surname"],
-                       data["dob"], caller_id)
+
+            fname = data["firstname"].decode()
+            sname = data["surname"]
+            dob = data["dob"]
+
+            c = Caller(fname+" "+sname,
+                       dob, caller_id)
             callers[str(caller_id)] = c
             return response
     else:
@@ -131,7 +136,7 @@ def get_changes(request):
     
     for caller in to_remove:
         del callers[caller]
-        
+
     json = json[:len(json)-1]
     json += "]}"
     return JsonResponse(json, safe=False)
