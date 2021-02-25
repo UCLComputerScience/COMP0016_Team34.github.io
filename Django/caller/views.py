@@ -3,6 +3,7 @@ from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -150,3 +151,15 @@ def add_url(request):
         desc = request.POST['description']
         urls_to_send[caller_id] = Url_to_send(url,desc)
     return HttpResponse(status=204)
+
+@csrf_exempt
+def login(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            return HttpResponse("True")
+        else:
+            return HttpResponse("False")
