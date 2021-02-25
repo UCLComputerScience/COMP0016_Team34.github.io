@@ -11,6 +11,7 @@ from django.utils import timezone
 # import datetime
 
 from .Caller import Caller
+from .Url_to_send import Url_to_send
 from .Form import Dataform, DescForm
 
 import uuid
@@ -19,7 +20,7 @@ from googletrans import Translator
 translator = Translator()
 
 callers = {}
-url_to_send = {}
+urls_to_send = {}
 
 
 def get_home(request):
@@ -108,8 +109,8 @@ def get_queue(request):
 def update_caller_time(request):
     print(callers)
     caller_id = request.COOKIES.get('id')
-    if(caller_id in url_to_send):
-        url = url_to_send[caller_id]
+    if(caller_id in urls_to_send):
+        url = urls_to_send[caller_id]
         print(url)
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
@@ -146,6 +147,6 @@ def add_url(request):
     if request.method == "POST":
         url = request.POST['url']
         caller_id = request.POST['id']
-        url_to_send[caller_id] = url
+        desc = request.POST['description']
+        urls_to_send[caller_id] = Url_to_send(url,desc)
     return HttpResponse(status=204)
-# to test curl -X post http://127.0.0.1:8000/addURLID/ -F "id=320493688610939527597112467216073650780" -F "url=google.com"
