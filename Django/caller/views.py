@@ -118,6 +118,7 @@ def update_caller_time(request):
 
 
 def get_changes(request):
+    to_remove=[]
     json = "{'callers':["
     for caller in callers:
         changes = callers[caller].to_JSON()
@@ -125,6 +126,12 @@ def get_changes(request):
             json += str(changes)
             json += ","
         callers[caller].clear_changes()
+        if not callers[caller].is_active():
+            to_remove.append(caller)
+    
+    for caller in to_remove:
+        del callers[caller]
+        
     json = json[:len(json)-1]
     json += "]}"
     return JsonResponse(json, safe=False)
