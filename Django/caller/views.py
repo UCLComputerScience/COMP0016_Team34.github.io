@@ -31,7 +31,7 @@ def get_home(request):
             response = HttpResponseRedirect("/queue/")
             response.set_cookie("id", str(caller_id))
 
-            fname = data["firstname"].decode()
+            fname = data["firstname"]
             sname = data["surname"]
             dob = data["dob"]
 
