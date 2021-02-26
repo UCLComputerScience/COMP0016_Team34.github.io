@@ -174,7 +174,7 @@ def login(request):
         else:
             return HttpResponse("False")
 
-
+@csrf_exempt
 def login(username, password):
     user = authenticate(username=username, password=password)
     if user is not None:
