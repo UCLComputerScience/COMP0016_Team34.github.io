@@ -1,6 +1,7 @@
 from json.encoder import JSONEncoder
 from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate
@@ -179,3 +180,7 @@ def login_user(username, password):
          return True
     else:
         return False
+
+@login_required
+def is_logged_in(request):
+    return HttpResponse("True")
