@@ -181,6 +181,7 @@ def login_user(username, password):
     else:
         return False
 
+
 @login_required
 def is_logged_in(request):
     return HttpResponse("True")
