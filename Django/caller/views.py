@@ -45,6 +45,8 @@ def get_home(request):
         form = Dataform()
     return render(request, "caller/index.html", {"form": form})
 
+# needs login
+
 
 def get_JSON(request):
     to_remove = []
@@ -63,16 +65,22 @@ def get_JSON(request):
         del callers[caller]
     return JsonResponse(json, safe=False)
 
+# needs login
+
 
 def get_static_JSON(request):
     c = Caller("Bob Smith", "11/1/2001")
     c.add_description("My leg is broken")
     return JsonResponse(c.to_JSON(), safe=False)
 
+# needs login
+
 
 def clear_data(request):
     callers.clear()
     return HttpResponseRedirect("/processInfo/")
+
+# needs login
 
 
 def get_All_JSON(request):
@@ -92,19 +100,19 @@ def get_queue(request):
         form = DescForm(request.POST)
         if form.is_valid():
             try:
-                lang = request.COOKIES.get('googtrans') #Cookie put in browser by google translate
+                # Cookie put in browser by google translate
+                lang = request.COOKIES.get('googtrans')
             except:
                 lang = '/en/en'
             callers[caller_id].add_language(lang)
             data = form.cleaned_data
             desc = translator.translate(data["desc"]).text
-            callers[caller_id].add_description(desc)       
-            
+            callers[caller_id].add_description(desc)
+
     # for caller in callers:
     #     print(callers[caller].id, callers[caller].description)
     form = DescForm()
-    return render(request, "caller/queue.html", {"desc_form": form,"id":caller_id})
-
+    return render(request, "caller/queue.html", {"desc_form": form, "id": caller_id})
 
 
 def update_caller_time(request):
@@ -118,14 +126,14 @@ def update_caller_time(request):
         try:
             callers[caller_id].update_time()
         except:
-            return HttpResponse(json.dumps({"url":"/"}), content_type='application/json')
-    
+            return HttpResponse(json.dumps({"url": "/"}), content_type='application/json')
+
     return HttpResponse(status=204)
 
 
-
+# needs login
 def get_changes(request):
-    to_remove=[]
+    to_remove = []
     json = "{'callers':["
     for caller in callers:
         changes = callers[caller].to_JSON()
@@ -135,7 +143,7 @@ def get_changes(request):
         callers[caller].clear_changes()
         if not callers[caller].is_active():
             to_remove.append(caller)
-    
+
     for caller in to_remove:
         del callers[caller]
 
@@ -143,23 +151,33 @@ def get_changes(request):
     json += "]}"
     return JsonResponse(json, safe=False)
 
+
 @csrf_exempt
+# needs login
 def add_url(request):
     if request.method == "POST":
         url = request.POST['url']
         caller_id = request.POST['id']
         desc = request.POST['description']
-        urls_to_send[caller_id] = Url_to_send(url,desc)
+        urls_to_send[caller_id] = Url_to_send(url, desc)
     return HttpResponse(status=204)
+
 
 @csrf_exempt
 def login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        
-        if user is not None:
+
+        if login(username,password):
             return HttpResponse("True")
         else:
             return HttpResponse("False")
+
+
+def login(username, password):
+    user = authenticate(username=username, password=password)
+    if user is not None:
+         True
+    else:
+        False
