@@ -1,0 +1,10 @@
+GUI\Pages\MainPage.class
+GUI\Dialogues\InvalidDetail.class
+GUI\Pages\Configuration.class
+GUI\Dialogues\EmptyField.class
+GUI\Dialogues\NeedHelp.class
+GUI\Pages\Login.class
+GUI\App.class
+GUI\Dialogues\ConnectionError.class
+GUI\Widgets\Entity.class
+GUI\Widgets\RoundButton.class
