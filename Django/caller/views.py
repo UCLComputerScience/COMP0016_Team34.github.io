@@ -168,8 +168,8 @@ def login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        
-        if login_user(username,password):
+        user = authenticate(username=username, password=password)
+        if user is not None:
             return HttpResponse("True")
         else:
             return HttpResponse("False")
