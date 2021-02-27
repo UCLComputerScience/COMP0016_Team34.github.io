@@ -3,6 +3,7 @@ package GUI.Pages;
 import GUI.App;
 import GUI.Widgets.Entity;
 import GUI.Dialogues.ConnectionError;
+import GUI.Widgets.Link;
 import GUI.Widgets.RoundButton;
 
 import javax.swing.*;
@@ -20,21 +21,25 @@ import java.util.regex.Pattern;
 
 import static GUI.Pages.Login.nhs;
 
+
 public class MainPage extends JFrame implements ActionListener {
+    public static Timer timer;
+    public Configuration configuration;
     private final JButton logoutButton = new RoundButton("");
     private final JButton configurationButton = new RoundButton("");
     private final JLabel numWaiting = new JLabel();
-    private final int BASEYGAP = 130;
-    private final Timer timer;
     private int entityNum;
-    private final String BASE_URL = "https://team34-comp0016-2020.azurewebsites.net/getChanges/";
+    private final int BASEYGAP = 130;
+    private final String FROM_URL = "https://team34-comp0016-2020.azurewebsites.net/getChanges/";
     private final String SEND_URL = "https://team34-comp0016-2020.azurewebsites.net/addURLID/";
     private final LinkedList<Entity> entities = new LinkedList<>();
     private FileWriter fileWriter = null;
-    private final String name;
+    private final String userName;
 
-    public MainPage(String name) {
-        this.name = name;
+
+    public MainPage(String userName) {
+        this.configuration = new Configuration();
+        this.userName = userName;
         this.entityNum = 0;
         try {
             fileWriter = new FileWriter(new File(App.currentDirectory + "record.txt"),true);
@@ -59,7 +64,7 @@ public class MainPage extends JFrame implements ActionListener {
         title.setForeground(new Color(0xFFFFFF));
 
         JLabel username = new JLabel();
-        username.setText(name);
+        username.setText(userName);
         username.setBounds(580,10,300,55);
         username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,35));
         username.setForeground(new Color(0xFFFFFF));
@@ -115,7 +120,7 @@ public class MainPage extends JFrame implements ActionListener {
         this.add(separator);
         this.add(numWaiting);
 
-        timer = new Timer(5000,this);
+        timer = new Timer(1000,this);
     }
 
     @Override
@@ -124,6 +129,7 @@ public class MainPage extends JFrame implements ActionListener {
         if(e.getSource() == logoutButton){
             timer.stop();
             new Login();
+            this.configuration.dispose();
             this.dispose();
             try {
                 fileWriter.close();
@@ -131,21 +137,18 @@ public class MainPage extends JFrame implements ActionListener {
                 ioException.printStackTrace();
             }
         }else if(e.getSource() ==configurationButton){
-            new Configuration();
+            timer.stop();
+            configuration.setVisible(true);
         }else if(e.getSource() == timer){
             parse(checkStatus());
         }
     }
 
-    //Initializing the program
-    public void initialize()  {
-        timer.start();
-    }
 
     //check whether there are changes in the json file
     private String checkStatus() {
         try{
-            URL obj = new URL(BASE_URL);
+            URL obj = new URL(FROM_URL);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
@@ -275,6 +278,7 @@ public class MainPage extends JFrame implements ActionListener {
 
     //Send the relevant information to the server
     public void send(String id, String link, String decision){
+        System.out.println(id + link + decision);
 //        String info = "1231231123";
 //        try{
 //            URL url = new URL(SEND_URL);
@@ -314,12 +318,20 @@ public class MainPage extends JFrame implements ActionListener {
         try {
             fileWriter.write(formatter.format(new Date()) + "|" + name + "|" + dob + "|" + description + "|" + receptionist + "|" + decision + System.lineSeparator());
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
     //Get the name of the receptionist
     public String getReceptionist() {
-        return name;
+        return userName;
+    }
+
+    //After the user has configured new settings, update combo boxes in all existing entities
+    public void updateComboBoxes(){
+        for(Entity entity : entities){
+            entity.updateComboBox();
+        }
+        this.repaint();
     }
 }
