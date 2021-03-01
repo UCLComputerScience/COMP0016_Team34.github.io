@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -23,6 +23,7 @@ translator = Translator()
 
 callers = {}
 urls_to_send = {}
+verified = []
 
 
 def get_home(request):
@@ -47,52 +48,63 @@ def get_home(request):
     return render(request, "caller/index.html", {"form": form})
 
 # needs login
-
-
 def get_JSON(request):
-    to_remove = []
-    json = "{'callers':["
-    for caller in callers:
-        caller_json = callers[caller].to_JSON()
-        if(len(caller_json) != 1):
-            json += str(caller_json)
-            json += ","
-            callers[caller].clear_changes()
-            if "'active': False" in json:
-                to_remove.append(caller)
-    json = json[:len(json)-1]
-    json += "]}"
-    for caller in to_remove:
-        del callers[caller]
-    return JsonResponse(json, safe=False)
+    if request.user.is_authenticated:
+        to_remove = []
+        json = "{'callers':["
+        for caller in callers:
+            caller_json = callers[caller].to_JSON()
+            if(len(caller_json) != 1):
+                json += str(caller_json)
+                json += ","
+                callers[caller].clear_changes()
+                if "'active': False" in json:
+                    to_remove.append(caller)
+        json = json[:len(json)-1]
+        json += "]}"
+        for caller in to_remove:
+            del callers[caller]
+        return JsonResponse(json, safe=False)
+    else:
+        return HttpResponse(status=403)
 
 # needs login
 
 
 def get_static_JSON(request):
-    c = Caller("Bob Smith", "11/1/2001")
-    c.add_description("My leg is broken")
-    return JsonResponse(c.to_JSON(), safe=False)
+    if request.user.is_authenticated:
+        c = Caller("Bob Smith", "11/1/2001",uuid.uuid4())
+        c.add_description("My leg is broken")
+        return JsonResponse(c.to_JSON(), safe=False)
+    else:
+        return HttpResponse(status=403)
 
 # needs login
 
 
 def clear_data(request):
-    callers.clear()
-    return HttpResponseRedirect("/processInfo/")
+    if request.user.is_authenticated:
+        callers.clear()
+        return HttpResponseRedirect("/processInfo/")
+    else:
+         return HttpResponse(status=403)
 
 # needs login
 
 
 def get_All_JSON(request):
-    json = "{'callers':["
-    for caller in callers:
-        json += str(callers[caller].get_All())
-        json += ","
-        callers[caller].clear_changes()
-    json = json[:len(json)-1]
-    json += "]}"
-    return JsonResponse(json, safe=False)
+    if request.user.is_authenticated:
+        json = "{'callers':["
+        for caller in callers:
+            json += str(callers[caller].get_All())
+            json += ","
+            callers[caller].clear_changes()
+        json = json[:len(json)-1]
+        json += "]}"
+        return JsonResponse(json, safe=False)
+    else:
+         return HttpResponse(status=403)
+
 
 
 def get_queue(request):
@@ -134,54 +146,68 @@ def update_caller_time(request):
 
 # needs login
 def get_changes(request):
-    to_remove = []
-    json = "{'callers':["
-    for caller in callers:
-        changes = callers[caller].to_JSON()
-        if(len(changes) != 1):
-            json += str(changes)
-            json += ","
-        callers[caller].clear_changes()
-        if not callers[caller].is_active():
-            to_remove.append(caller)
+    if request.user.is_authenticated:
+        to_remove = []
+        json = "{'callers':["
+        for caller in callers:
+            changes = callers[caller].to_JSON()
+            if(len(changes) != 1):
+                json += str(changes)
+                json += ","
+            callers[caller].clear_changes()
+            if not callers[caller].is_active():
+                to_remove.append(caller)
 
-    for caller in to_remove:
-        del callers[caller]
+        for caller in to_remove:
+            del callers[caller]
 
-    json = json[:len(json)-1]
-    json += "]}"
-    return JsonResponse(json, safe=False)
+        json = json[:len(json)-1]
+        json += "]}"
+        return JsonResponse(json, safe=False)
+    else:
+         return HttpResponse(status=403)
 
 
 @csrf_exempt
 # needs login
 def add_url(request):
-    if request.method == "POST":
-        url = request.POST['url']
-        caller_id = request.POST['id']
-        desc = request.POST['description']
-        urls_to_send[caller_id] = Url_to_send(url, desc)
-    return HttpResponse(status=204)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            url = request.POST['url']
+            caller_id = request.POST['id']
+            desc = request.POST['description']
+            urls_to_send[caller_id] = Url_to_send(url, desc)
+        return HttpResponse(status=204)
+    else:
+         return HttpResponse(status=403)
 
 
 @csrf_exempt
-def login(request):
+def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        if login_user(username,password):
+        if login_user(username,password,request):
             return HttpResponse("True")
         else:
             return HttpResponse("False")
 
-def login_user(username, password):
-    user = authenticate(username=username, password=password)
+def login_user(username, password, request):
+    user = authenticate(request, username=username, password=password)
     if user is not None:
-         return True
+        login(request, user)
+        return True
     else:
         return False
 
 
-@login_required
 def is_logged_in(request):
+    if request.user.is_authenticated:
+        return HttpResponse("True")
+    else:
+         return HttpResponse("False")
+
+
+def logout_view(request):
+    logout(request)
     return HttpResponse("True")

@@ -4,10 +4,10 @@ if the user is verified aa random string will be sent back. When a restricted ur
 The cookies sent from the server must be stored and then sent back to the server to ensure the server knows which session to use. These cookies shall be sent with all future requests to sensitive data in these urls:
 * getJSON/
 * staticInfo/
-* clear_data/
-* get_All_JSON/
-* get_changes/
-* add_url/
+* clearData/
+* getAll/
+* getChanges/
+* addURLID/
 
 using curl
 ```BASH

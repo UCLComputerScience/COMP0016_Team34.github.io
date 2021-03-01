@@ -14,6 +14,7 @@ urlpatterns = [
     path('queue/',views.get_queue, name='queue'),
     path('updateCaller/',views.update_caller_time,name='updateCallerTime'),
     path('addURLID/',views.add_url,name="addURLToSend"),
-    path('login/',views.login,name="login"),
-    path('loginTest/',views.is_logged_in,name="isLoggedin")
+    path('login/',views.login_view,name="login"),
+    path('loginTest/',views.is_logged_in,name="isLoggedin"),
+    path('logout/',views.logout_view,name="logout")
 ]
