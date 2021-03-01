@@ -226,3 +226,7 @@ def get_pos(caller_id):
         if callers[caller_id].get_start() < caller_time:
             position += 1
     return position 
+
+
+def get_warning_screen(request):
+    return render(request,"caller/warning.html")
