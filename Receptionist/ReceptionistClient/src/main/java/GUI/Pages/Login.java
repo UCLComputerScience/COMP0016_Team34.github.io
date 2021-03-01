@@ -104,8 +104,7 @@ public class Login extends JFrame implements ActionListener {
             if(searchDatabase(usernameInput.getText(),new String(passwordInput.getPassword()))){
                 this.dispose();
                 mainPage = new GUI.Pages.MainPage(usernameInput.getText());
-                mainPage.initialize();
-                new Configuration();
+                mainPage.configuration.setVisible(true);
             }else{
                 usernameInput.setText("");
                 passwordInput.setText("");
