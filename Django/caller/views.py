@@ -210,3 +210,19 @@ def is_logged_in(request):
 def logout_view(request):
     logout(request)
     return HttpResponse("True")
+
+@csrf_exempt
+def get_queue_position(request):
+    caller_id = request.POST['id']
+    if request.method == "POST":
+        pos = get_pos(caller_id)
+        return HttpResponse(str(pos))
+
+
+def get_pos(caller_id):
+    caller_time = callers[caller_id].get_start()
+    position = 1
+    for caller_id in callers:
+        if callers[caller_id].get_start() < caller_time:
+            position += 1
+    return position 
