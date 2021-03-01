@@ -23,7 +23,6 @@ translator = Translator()
 
 callers = {}
 urls_to_send = {}
-verified = []
 
 
 def get_home(request):
