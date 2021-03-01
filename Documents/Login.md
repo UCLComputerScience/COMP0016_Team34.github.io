@@ -9,6 +9,8 @@ The cookies sent from the server must be stored and then sent back to the server
 * getChanges/
 * addURLID/
 
+To log out the /logout/ url should be used with the cookies as before. This will log the user out and return a value of true.
+
 using curl
 ```BASH
 curl -X POST https://team34-comp0016-2020.azurewebsites.net/login/ -F "username=<Username>" -F "password=<Password>" -c cookies.txt
@@ -16,4 +18,8 @@ curl -X POST https://team34-comp0016-2020.azurewebsites.net/login/ -F "username=
 Then we can test the login
 ```BASH
 curl -X GET https://team34-comp0016-2020.azurewebsites.net/loginTest/ -b cookies.txt         
+```
+to logout
+```BASH
+curl -X GET https://team34-comp0016-2020.azurewebsites.net/logout/ -b cookies.txt    
 ```
