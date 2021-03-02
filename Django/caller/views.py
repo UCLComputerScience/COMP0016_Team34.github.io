@@ -42,8 +42,7 @@ def get_home(request):
                        dob, caller_id)
             callers[str(caller_id)] = c
             return response
-    else:
-        form = Dataform()
+    form = Dataform()
     return render(request, "caller/index.html", {"form": form})
 
 # needs login
@@ -107,7 +106,10 @@ def get_All_JSON(request):
 
 
 def get_queue(request):
-    caller_id = request.COOKIES.get('id')
+    try:
+        caller_id = request.COOKIES.get('id')
+    except:
+        return HttpResponseRedirect("/")
     if request.method == "POST":
         form = DescForm(request.POST)
         if form.is_valid():
@@ -217,15 +219,18 @@ def get_queue_position(request):
     if request.method == "POST":
         pos = get_pos(caller_id)
         return HttpResponse(str(pos))
-
+    
 
 def get_pos(caller_id):
-    caller_time = callers[caller_id].get_start()
-    position = 1
-    for caller_id in callers:
-        if callers[caller_id].get_start() < caller_time:
-            position += 1
-    return position 
+    if caller_id != 'None':
+        caller_time = callers[caller_id].get_start()
+        position = 1
+        for caller_id in callers:
+            if callers[caller_id].get_start() < caller_time:
+                position += 1
+        return position 
+    else:
+        return 0;
 
 
 def get_warning_screen(request):
