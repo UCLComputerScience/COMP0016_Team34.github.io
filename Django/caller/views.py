@@ -109,7 +109,7 @@ def get_queue(request):
     try:
         caller_id = request.COOKIES.get('id')
     except:
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/cookieWarning/")
     if request.method == "POST":
         form = DescForm(request.POST)
         if form.is_valid():
@@ -140,7 +140,7 @@ def update_caller_time(request):
         try:
             callers[caller_id].update_time()
         except:
-            return HttpResponse(json.dumps({"url": "/"}), content_type='application/json')
+            return HttpResponse(json.dumps({"url": "/cookieWarning/"}), content_type='application/json')
 
     return HttpResponse(status=204)
 
@@ -235,3 +235,7 @@ def get_pos(caller_id):
 
 def get_warning_screen(request):
     return render(request,"caller/warning.html")
+
+
+def get_cookie_warning_screen(request):
+    return render(request,"caller/CookieWarning.html")

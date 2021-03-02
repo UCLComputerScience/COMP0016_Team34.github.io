@@ -18,5 +18,6 @@ urlpatterns = [
     path('loginTest/',views.is_logged_in,name="isLoggedin"),
     path('logout/',views.logout_view,name="logout"),
     path('position/',views.get_queue_position,name="position"),
-    path('warning/',views.get_warning_screen,name="warning")
+    path('warning/',views.get_warning_screen,name="warning"),
+    path('cookieWarning/',views.get_cookie_warning_screen,name="warning")
 ]
