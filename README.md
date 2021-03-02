@@ -194,6 +194,10 @@ We had another meeting with the clients, joined by Dean Mohamedally and Atia Raf
 - The current Client is only runnable with JVM, so after improvements, it should be built into an exe file
 - Requires suggestions from clients
 
+### 1-03
+-Set up postgres database on azure
+-Set up login functionality using djangos built in systems
+-Added warning page for serious injuries
 
 
 ### Code
