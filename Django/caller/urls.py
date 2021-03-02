@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'caller'
 urlpatterns = [
-    path('', views.get_home, name='index'),
+    path('', views.get_warning_screen, name='index'),
     path('getJSON/', views.get_JSON, name='json'),
     path('processInfo/',views.get_home, name='processInfo'),
     path('staticInfo/',views.get_static_JSON, name='staticInfo'),
