@@ -118,6 +118,8 @@ def get_queue(request):
             try:
                 # Cookie put in browser by google translate
                 lang = request.COOKIES.get('googtrans')
+                if lang == None:
+                    lang = '/en/en'
             except:
                 lang = '/en/en'
             callers[caller_id].add_language(lang)
