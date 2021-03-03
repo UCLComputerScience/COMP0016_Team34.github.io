@@ -97,7 +97,9 @@ def get_All_JSON(request):
             json += str(callers[caller].get_All())
             json += ","
             callers[caller].clear_changes()
-        json = json[:len(json)-1]
+        
+        if json[len(json)-1] == ',':
+            json = json[:len(json)-1]
         json += "]}"
         return JsonResponse(json, safe=False)
     else:
@@ -161,8 +163,9 @@ def get_changes(request):
 
         for caller in to_remove:
             del callers[caller]
-
-        json = json[:len(json)-1]
+    
+        if json[len(json)-1] == ',':
+            json = json[:len(json)-1]
         json += "]}"
         return JsonResponse(json, safe=False)
     else:
