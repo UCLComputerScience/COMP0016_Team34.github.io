@@ -1,8 +1,6 @@
 package GUI.Widgets;
 
-import GUI.App;
 import GUI.Pages.Login;
-import GUI.Pages.MainPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Link extends JPanel implements ActionListener {
-    private static final ImageIcon cross = new ImageIcon(App.currentDirectory + "cross.jpg");
     private final JButton remove = new JButton();
     private final JTextField nameField = new JTextField("");
     private final JTextField linkField = new JTextField("");
@@ -56,8 +53,8 @@ public class Link extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == remove){
-            Login.mainPage.configuration.remove(this);
-            Login.mainPage.configuration.update(this.yValue);
+            Login.mainPage.configurationPage.remove(this);
+            Login.mainPage.configurationPage.update(this.yValue);
         }
     }
 

@@ -1,49 +1,70 @@
 package GUI.Pages;
 
 import GUI.App;
-import GUI.Widgets.Entity;
+import GUI.Widgets.Caller;
 import GUI.Dialogues.ConnectionError;
-import GUI.Widgets.Link;
 import GUI.Widgets.RoundButton;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.cloud.language.v1.*;
+
 import static GUI.Pages.Login.nhs;
 
 
 public class MainPage extends JFrame implements ActionListener {
+    //the links of the server
+    private final String BASE_URL;
+    private final String FROM_URL;
+    private final String SEND_URL;
+    private final String LOGOUT_URL;
+    //the properties of the ui
     public static Timer timer;
-    public Configuration configuration;
     private final JButton logoutButton = new RoundButton("");
     private final JButton configurationButton = new RoundButton("");
     private final JLabel numWaiting = new JLabel();
-    private int entityNum;
     private final int BASEYGAP = 130;
-    private final String FROM_URL = "https://team34-comp0016-2020.azurewebsites.net/getChanges/";
-    private final String SEND_URL = "https://team34-comp0016-2020.azurewebsites.net/addURLID/";
-    private final LinkedList<Entity> entities = new LinkedList<>();
-    private FileWriter fileWriter = null;
+    //the num of entities
+    private int callerNum;
+    //the list of entities
+    private final LinkedList<Caller> callers = new LinkedList<>();
+    //write the record in a file, to be initialized in constructor
+    private FileWriter fileWriter;
+    //the user's username
     private final String userName;
+    //a configuration page bound to the main page
+    public Configuration configurationPage;
+    //a manager which manages all cookies
+    public static final CookieManager cookieManager = new CookieManager();
 
-
-    public MainPage(String userName) {
-        this.configuration = new Configuration();
+    public MainPage(String userName, String url) {
+        this.configurationPage = new Configuration();
+        this.BASE_URL = url;
+        this.FROM_URL = BASE_URL + "/getChanges/";
+        this.SEND_URL = BASE_URL + "/addURLID/";
+        this.LOGOUT_URL = BASE_URL + "/logout/";
         this.userName = userName;
-        this.entityNum = 0;
-        try {
+        this.callerNum = 0;
+
+        try{
             fileWriter = new FileWriter(new File(App.currentDirectory + "record.txt"),true);
-        } catch (IOException e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
 
@@ -66,7 +87,7 @@ public class MainPage extends JFrame implements ActionListener {
         JLabel username = new JLabel();
         username.setText(userName);
         username.setBounds(580,10,300,55);
-        username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,35));
+        username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,25));
         username.setForeground(new Color(0xFFFFFF));
 
         JLabel loggedinas = new JLabel();
@@ -78,7 +99,7 @@ public class MainPage extends JFrame implements ActionListener {
         JSeparator separator = new JSeparator();
         separator.setBounds(10,71,965,5);
 
-        numWaiting.setText(Integer.toString(entityNum));
+        numWaiting.setText(Integer.toString(callerNum));
         numWaiting.setBounds(10,63,60,55);
         numWaiting.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,35));
         numWaiting.setForeground(Color.BLACK);
@@ -120,16 +141,23 @@ public class MainPage extends JFrame implements ActionListener {
         this.add(separator);
         this.add(numWaiting);
 
-        timer = new Timer(1000,this);
+        this.addWindowListener(new java.awt.event.WindowAdapter(){
+            public void windowClosing(WindowEvent winEvt) {
+                logout();
+            }
+        });
+
+        timer = new Timer(10000,this);
     }
 
     @Override
     //This is a method which listens to the events
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logoutButton){
+            logout();
             timer.stop();
             new Login();
-            this.configuration.dispose();
+            this.configurationPage.dispose();
             this.dispose();
             try {
                 fileWriter.close();
@@ -138,7 +166,7 @@ public class MainPage extends JFrame implements ActionListener {
             }
         }else if(e.getSource() ==configurationButton){
             timer.stop();
-            configuration.setVisible(true);
+            configurationPage.setVisible(true);
         }else if(e.getSource() == timer){
             parse(checkStatus());
         }
@@ -177,7 +205,7 @@ public class MainPage extends JFrame implements ActionListener {
             timer.stop();
             return;
         }
-        if(!response.equals("\"{'callers':]}\"")){
+        if(!response.equals("\"{'callers':[]}\"")){
             response = response.substring(12,response.length()-2);
             String matching = "\\{[^{]*}";
             Pattern regex = Pattern.compile(matching);
@@ -205,9 +233,9 @@ public class MainPage extends JFrame implements ActionListener {
         boolean translated = !current.substring(current.indexOf("'language'")+13, current.indexOf("'description'")-3).equals("/en/en");
         String id = current.substring(7,current.indexOf("'language'")-2);
         String description = current.substring(current.indexOf("'description'")+16,current.length()-2);
-        for(Entity y: entities){
-            if(y.getId().equals(id)){
-                y.setDescription(description,translated);
+        for(Caller caller: callers){
+            if(caller.getId().equals(id)){
+                caller.setDescription(description,translated);
                 this.repaint();
                 break;
             }
@@ -216,7 +244,7 @@ public class MainPage extends JFrame implements ActionListener {
 
     private void leaveQueue(String current){
         String id = current.substring(7,current.indexOf("'active'")-2);
-        for(Entity y: entities){
+        for(Caller y: callers){
             if(y.getId().equals(id)){
                 this.remove(y);
                 this.update(id);
@@ -232,11 +260,11 @@ public class MainPage extends JFrame implements ActionListener {
         }
         String dob = current.substring(current.indexOf("'dob'")+8,current.indexOf("'id'")-3);
         String id = current.substring(current.indexOf("'id'")+6,current.length()-1);
-        entityNum++;
-        numWaiting.setText(Integer.toString(entityNum));
-        Entity entity = new Entity(name,dob,"",entityNum*BASEYGAP,id);
-        entities.add(entity);
-        this.add(entity);
+        callerNum++;
+        numWaiting.setText(Integer.toString(callerNum));
+        Caller caller = new Caller(name,dob,"", callerNum *BASEYGAP,id);
+        callers.add(caller);
+        this.add(caller);
         this.repaint();
     }
 
@@ -249,12 +277,12 @@ public class MainPage extends JFrame implements ActionListener {
         String dob = current.substring(current.indexOf("'dob'")+8,current.indexOf("'id'")-3);
         String id = current.substring(current.indexOf("'id'")+6,current.indexOf("'language'")-2);
         String description = current.substring(current.indexOf("'description'")+16,current.length()-2);
-        entityNum++;
-        numWaiting.setText(Integer.toString(entityNum));
-        Entity entity = new Entity(name,dob,"",entityNum*BASEYGAP,id);
-        entity.setDescription(description,translated);
-        entities.add(entity);
-        this.add(entity);
+        callerNum++;
+        numWaiting.setText(Integer.toString(callerNum));
+        Caller caller = new Caller(name,dob,"", callerNum *BASEYGAP,id);
+        caller.setDescription(description,translated);
+        callers.add(caller);
+        this.add(caller);
         this.repaint();
     }
 
@@ -277,36 +305,33 @@ public class MainPage extends JFrame implements ActionListener {
     }
 
     //Send the relevant information to the server
-    public void send(String id, String link, String decision){
-        System.out.println(id + link + decision);
-//        String info = "1231231123";
-//        try{
-//            URL url = new URL(SEND_URL);
-//            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-//            connection.setRequestMethod("POST");
-//            connection.setRequestProperty("Content-Type", "application/json; utf-8");
-//            connection.setDoOutput(true);
-//            connection.setDoInput(true);
-//            connection.setUseCaches(false);
-//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-//            writer.write(info);
-//            writer.flush();
-//            writer.close();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            new ConnectionError();
-//        }
+    public void send(String id, String link, String description) {
+        try{
+            String info = "id=" + id + "&url=" + link + "&description=" + description;
+            URL obj = new URL(SEND_URL);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            OutputStream os = connection.getOutputStream();
+            os.write(info.getBytes());
+            os.flush();
+            os.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            new ConnectionError();
+        }
     }
 
-    //After an entity is removed, update the location of all other entities
+
+    //After an caller is removed, update the location of all other entities
     public void update(String id){
-        entityNum --;
-        numWaiting.setText(Integer.toString(entityNum));
-        entities.removeIf(entity -> entity.getId().equals(id));
-        for(int i = 0; i < entities.size(); i++){
+        callerNum--;
+        numWaiting.setText(Integer.toString(callerNum));
+        callers.removeIf(caller -> caller.getId().equals(id));
+        for(int i = 0; i < callers.size(); i++){
             int expectedYvalue = (i+1)*BASEYGAP;
-            if(entities.get(i).yValue != expectedYvalue){
-                entities.get(i).changeLocation(expectedYvalue);
+            if(callers.get(i).yValue != expectedYvalue){
+                callers.get(i).changeLocation(expectedYvalue);
             }
         }
         this.repaint();
@@ -317,6 +342,7 @@ public class MainPage extends JFrame implements ActionListener {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             fileWriter.write(formatter.format(new Date()) + "|" + name + "|" + dob + "|" + description + "|" + receptionist + "|" + decision + System.lineSeparator());
+            fileWriter.flush();
         } catch (IOException e) {
             e.getMessage();
         }
@@ -329,9 +355,44 @@ public class MainPage extends JFrame implements ActionListener {
 
     //After the user has configured new settings, update combo boxes in all existing entities
     public void updateComboBoxes(){
-        for(Entity entity : entities){
-            entity.updateComboBox();
+        for(Caller caller : callers){
+            caller.updateComboBox();
         }
         this.repaint();
+    }
+
+    //Logout the account
+    private void logout(){
+        try{
+            URL obj = new URL(LOGOUT_URL);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            connection.getResponseCode();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //analyze the descrption using the google api
+    public ArrayList<String> analyzeDescription(String description){
+        ArrayList<String> results = new ArrayList<>();
+        try (LanguageServiceClient language = LanguageServiceClient.create()) {
+            Document doc = Document.newBuilder().setContent(description).setType(Document.Type.PLAIN_TEXT).build();
+            AnalyzeEntitiesRequest request =
+                    AnalyzeEntitiesRequest.newBuilder()
+                            .setDocument(doc)
+                            .setEncodingType(EncodingType.UTF16)
+                            .build();
+            AnalyzeEntitiesResponse response = language.analyzeEntities(request);
+
+            for (Entity entity : response.getEntitiesList()) {
+                results.add(entity.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            new ConnectionError();
+        }
+        results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
+        return results;
     }
 }
