@@ -11,12 +11,14 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class Configuration extends JFrame implements ActionListener {
+    //values to be used in combo box
     public String[] names= null;
     public String[] linkValues = null;
-
+    //ui properties
     private final int STEP = 80;
     private final JButton save;
     private final JButton add;
+    //a list of links
     private final LinkedList<Link> links = new LinkedList<>();
 
 
@@ -67,6 +69,7 @@ public class Configuration extends JFrame implements ActionListener {
 
 
     @Override
+    //listens to all the events happening in this page
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == save) {
             if(links.size() == 0){
@@ -94,7 +97,7 @@ public class Configuration extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //set a jcombobox to be used by the entities
+    //set a jcombobox to be used by the callers
     private void setComboBoxValues(LinkedList<Link> links){
         String[] names = new String[links.size()];
         String[] linkValues = new String[links.size()];
