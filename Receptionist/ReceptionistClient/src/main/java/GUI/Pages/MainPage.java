@@ -307,6 +307,8 @@ public class MainPage extends JFrame implements ActionListener {
     //Send the relevant information to the server
     public void send(String id, String link, String description) {
         try{
+            link = link.replaceAll("https://", "");
+            link = link.replaceAll("http://", "");
             String info = "id=" + id + "&url=" + link + "&description=" + description;
             URL obj = new URL(SEND_URL);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
