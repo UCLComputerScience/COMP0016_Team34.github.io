@@ -134,11 +134,14 @@ def get_queue(request):
 
 
 def update_caller_time(request):
-    print(callers)
-    caller_id = request.COOKIES.get('id')
+    try:
+        caller_id = request.COOKIES.get('id')
+    except:
+        return HttpResponseRedirect("/cookieWarning/")
     if(caller_id in urls_to_send):
         url = urls_to_send[caller_id]
-        print(url)
+        print(url.get_url(),url.get_description())
+        return HttpResponse(json.dumps({"url": "/links/"}), content_type='application/json')
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
         try:
@@ -244,3 +247,15 @@ def get_warning_screen(request):
 
 def get_cookie_warning_screen(request):
     return render(request,"caller/CookieWarning.html")
+
+def show_links(request):
+
+    try:
+        caller_id = request.COOKIES.get('id')
+    except:
+        return HttpResponseRedirect("/cookieWarning/")
+    if caller_id in urls_to_send:
+        url = urls_to_send[caller_id]
+        return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
+
+    return HttpResponseRedirect("/")

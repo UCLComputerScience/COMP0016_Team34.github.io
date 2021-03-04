@@ -19,5 +19,6 @@ urlpatterns = [
     path('logout/',views.logout_view,name="logout"),
     path('position/',views.get_queue_position,name="position"),
     path('warning/',views.get_warning_screen,name="warning"),
-    path('cookieWarning/',views.get_cookie_warning_screen,name="warning")
+    path('cookieWarning/',views.get_cookie_warning_screen,name="Cookiewarning"),
+    path('links/',views.show_links,name='links')
 ]

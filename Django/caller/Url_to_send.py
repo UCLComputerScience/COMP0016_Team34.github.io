@@ -3,7 +3,7 @@ class Url_to_send():
 
     def __init__(self,url,desc):
         self.url = url
-        self.description = url
+        self.description = desc
 
     
     def get_url(self):
