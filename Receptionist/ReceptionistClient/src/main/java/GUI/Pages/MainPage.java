@@ -318,6 +318,7 @@ public class MainPage extends JFrame implements ActionListener {
             os.write(info.getBytes());
             os.flush();
             os.close();
+            connection.getResponseCode();
         }catch (Exception e){
             e.printStackTrace();
             new ConnectionError();
