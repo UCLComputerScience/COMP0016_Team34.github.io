@@ -1,13 +1,14 @@
 GUI\Pages\MainPage.class
 GUI\Dialogues\InvalidDetail.class
 GUI\Dialogues\ExceedLength.class
+GUI\Pages\MainPage$1.class
 GUI\Dialogues\NoLink.class
 GUI\Pages\Configuration.class
+GUI\Widgets\Caller.class
 GUI\Dialogues\EmptyField.class
 GUI\Dialogues\NeedHelp.class
 GUI\Pages\Login.class
 GUI\Widgets\Link.class
 GUI\App.class
 GUI\Dialogues\ConnectionError.class
-GUI\Widgets\Entity.class
 GUI\Widgets\RoundButton.class

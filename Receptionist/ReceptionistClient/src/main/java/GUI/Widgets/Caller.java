@@ -7,16 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class Entity extends JPanel implements ActionListener {
+public class Caller extends JPanel implements ActionListener {
 
-    private final JTextArea description = new JTextArea();
+    private final JEditorPane description = new JEditorPane();
     private final JButton send = new JButton();
     private final JButton neglect = new JButton();
     private final JTextArea name = new JTextArea();
     private final JTextArea dob = new JTextArea();
-    private JComboBox<String> options;
+    private final JComboBox<String> options;
     private static final ImageIcon cross = new ImageIcon(App.currentDirectory + "cross.jpg");
+    //a string without html format to be recorded
+    private String descriptionWithoutFormat;
 
     private final String id;
     public String getId() {
@@ -24,7 +27,7 @@ public class Entity extends JPanel implements ActionListener {
     }
     public int yValue;
 
-    public Entity(String name, String dob, String description, int y,String id){
+    public Caller(String name, String dob, String description, int y, String id){
         this.yValue = y;
         this.id = id;
         
@@ -40,12 +43,12 @@ public class Entity extends JPanel implements ActionListener {
         this.dob.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,30));
         this.dob.setBackground(null);
 
+        this.description.setContentType("text/html");
+        this.description.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
         this.description.setText(description);
         this.description.setEditable(false);
-        this.description.setBounds(320,10,500,100);
-        this.description.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,25));
-        this.description.setLineWrap(true);
-        this.description.setWrapStyleWord(true);
+        this.description.setBounds(320,5,500,110);
+        this.description.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,20));
         this.description.setBackground(null);
 
         this.send.setBounds(830,85,120,30);
@@ -60,7 +63,7 @@ public class Entity extends JPanel implements ActionListener {
         this.neglect.setIcon(cross);
         this.neglect.addActionListener(this);
 
-        this.options = new JComboBox<>(Login.mainPage.configuration.names);
+        this.options = new JComboBox<>(Login.mainPage.configurationPage.names);
         this.options.setBounds(830,50,120,30);
         this.options.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,15));
 
@@ -79,13 +82,13 @@ public class Entity extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.send){
-            Login.mainPage.send(this.id,Login.mainPage.configuration.linkValues[options.getSelectedIndex()],Login.mainPage.configuration.names[options.getSelectedIndex()]);
-            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.description.getText(),Login.mainPage.getReceptionist(),(String) options.getSelectedItem());
+            Login.mainPage.send(this.id,Login.mainPage.configurationPage.linkValues[options.getSelectedIndex()],Login.mainPage.configurationPage.names[options.getSelectedIndex()]);
+            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),(String) options.getSelectedItem());
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }else if(e.getSource() == this.neglect){
             Login.mainPage.send(this.id,"","This is a warning. Please don't waste public resources");
-            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.description.getText(),Login.mainPage.getReceptionist(),"prank");
+            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"prank");
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }
@@ -97,7 +100,16 @@ public class Entity extends JPanel implements ActionListener {
     }
 
     public void setDescription(String description,boolean translated){
-        this.description.setText(description);
+        this.descriptionWithoutFormat = description;
+        ArrayList<String> importants = Login.mainPage.analyzeDescription(description);
+        if(importants == null){
+            this.description.setText(description);
+        } else {
+            for (String important : importants){
+                description = description.replace(important,"<b>" + important + "</b>");
+            }
+            this.description.setText(description);
+        }
         if(translated){
             ImageIcon translatedIcon = new ImageIcon(App.currentDirectory + "translated.png");
             JLabel translatedLabel = new JLabel();
@@ -110,7 +122,7 @@ public class Entity extends JPanel implements ActionListener {
 
     public void updateComboBox(){
         options.removeAllItems();
-        for(String string : Login.mainPage.configuration.names){
+        for(String string : Login.mainPage.configurationPage.names){
             options.addItem(string);
         }
     }
