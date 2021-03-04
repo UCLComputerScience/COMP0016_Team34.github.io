@@ -97,7 +97,7 @@ public class Configuration extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //set a jcombobox to be used by the entities
+    //set a jcombobox to be used by the callers
     private void setComboBoxValues(LinkedList<Link> links){
         String[] names = new String[links.size()];
         String[] linkValues = new String[links.size()];

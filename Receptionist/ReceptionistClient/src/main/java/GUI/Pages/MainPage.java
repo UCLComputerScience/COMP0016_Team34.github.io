@@ -40,9 +40,9 @@ public class MainPage extends JFrame implements ActionListener {
     private final JButton configurationButton = new RoundButton("");
     private final JLabel numWaiting = new JLabel();
     private final int BASEYGAP = 130;
-    //the num of entities
+    //the num of callers
     private int callerNum;
-    //the list of entities
+    //the list of callers
     private final LinkedList<Caller> callers = new LinkedList<>();
     //write the record in a file, to be initialized in constructor
     private FileWriter fileWriter;
@@ -325,7 +325,7 @@ public class MainPage extends JFrame implements ActionListener {
     }
 
 
-    //After an caller is removed, update the location of all other entities
+    //After a caller is removed, update the location of all other callers
     public void update(String id){
         callerNum--;
         numWaiting.setText(Integer.toString(callerNum));
@@ -355,7 +355,7 @@ public class MainPage extends JFrame implements ActionListener {
         return userName;
     }
 
-    //After the user has configured new settings, update combo boxes in all existing entities
+    //After the user has configured new settings, update combo boxes in all existing callers
     public void updateComboBoxes(){
         for(Caller caller : callers){
             caller.updateComboBox();
@@ -375,7 +375,7 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-    //analyze the descrption using the google api
+    //analyze the description using the google api
     public ArrayList<String> analyzeDescription(String description){
         ArrayList<String> results = new ArrayList<>();
         try (LanguageServiceClient language = LanguageServiceClient.create()) {
