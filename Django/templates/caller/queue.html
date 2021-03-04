@@ -45,7 +45,7 @@
 					<div class="col-12">
 						<div class="introtext">
 							YOU ARE NOW IN THE QUEUE:
-							<p id='queue-size'> </p>
+							<p> You are in position </p> <p id='queue-size'> </p> <p> in the queue </p>
 						</div>
 					</div>
 					<div class="col"></div>
@@ -117,7 +117,7 @@
        				$.post("/position/",{"id":'{{id}}', "csrfmiddlewaretoken": '{{ csrf_token }}'},
 					   function(data){
 						   try{
-						  	 document.getElementById("queue-size").innerHTML = 'You are in position ' + data + ' in the queue'
+						  	 document.getElementById("queue-size").innerHTML = data
 						   }catch(error){
 						   }
 					   })
