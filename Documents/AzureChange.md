@@ -5,6 +5,15 @@ When in a directory containing the code to be deployed to the server (eg after i
 ```
 az login
 ```
+
+Set the subscription to be used
+```
+az account set --subscription <sub>
+```
+Where
+\<sub\> is the subscription id found in the azure portal
+
+
 This will direct you to a login page - log in with your azure credentials
 ```BASH
 az webapp up --resource-group <resource-group> --location <location> --name <app-name>
