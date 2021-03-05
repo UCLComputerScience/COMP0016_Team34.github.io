@@ -1,13 +1,13 @@
-#### Changing the server running the azure service
+## Changing the server running the azure service
 
 
 When in a directory containing the code to be deployed to the server (eg after it has been ```git pull```-ed from a repository)
-```
+```BASH
 az login
 ```
 
 Set the subscription to be used
-```
+```BASH
 az account set --subscription <sub>
 ```
 Where
@@ -31,3 +31,9 @@ After this has succeeded in future to redeploy to the server the command
 az webapp up
 ```
 can be run by itself. This will use the settings saved from the first call and will deploy to the server. 
+
+
+
+### References
+https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az_webapp_up
+https://docs.microsoft.com/en-us/cli/azure/webapp/config?view=azure-cli-latest
