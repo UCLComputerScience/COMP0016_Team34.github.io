@@ -138,7 +138,7 @@ def update_caller_time(request):
         caller_id = request.COOKIES.get('id')
     except:
         return HttpResponseRedirect("/cookieWarning/")
-    if caller_id in urls_to_send:
+    if(caller_id in urls_to_send):
         url = urls_to_send[caller_id]
         print(url.get_url(),url.get_description())
         return HttpResponse(json.dumps({"url": "/links/"}), content_type='application/json')
@@ -183,7 +183,7 @@ def add_url(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             url = request.POST['url']
-            caller_id = str(request.POST['id'])
+            caller_id = request.POST['id']
             desc = request.POST['description']
             urls_to_send[caller_id] = Url_to_send(url, desc)
         return HttpResponse(status=204)
@@ -254,7 +254,7 @@ def show_links(request):
         caller_id = request.COOKIES.get('id')
     except:
         return HttpResponseRedirect("/cookieWarning/")
-    if str(caller_id) in urls_to_send:
+    if caller_id in urls_to_send:
         url = urls_to_send[caller_id]
         return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
 
