@@ -1,5 +1,5 @@
 body{
-	background: linear-gradient(to bottom, #33ccff 0%, #050505 100%);
+	background: #FFFFFF;
 }
 
 .dark1{
@@ -18,7 +18,31 @@ body{
 	color:white;
 }
 
+.headingtext {
+	background-color: #005eb8;
+	color: #FFFFFF;
+    
+	padding: 15px;
+	text-align: center;
+	font-size: 50px;
+	font: Arial;
+	font-weight: bold;
 
+}
+
+.button {
+	background-color: #005eb8;
+	border: none;
+	color: white;
+	padding: 8px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	border-radius: 12px;
+  
+}
 
 .introtext {
 	display: inline;
