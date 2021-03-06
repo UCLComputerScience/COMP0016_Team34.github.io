@@ -35,5 +35,5 @@ can be run by itself. This will use the settings saved from the first call and w
 
 
 ### References
-https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az_webapp_up
+https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az_webapp_up <br>
 https://docs.microsoft.com/en-us/cli/azure/webapp/config?view=azure-cli-latest
