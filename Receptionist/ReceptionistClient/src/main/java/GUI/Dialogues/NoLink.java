@@ -6,6 +6,9 @@ import GUI.Pages.Login;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The page to be displayed when the user has not set any valid link to send to the callers
+ */
 public class NoLink extends JFrame {
     public NoLink(){
         JTextField line1 = new JTextField();

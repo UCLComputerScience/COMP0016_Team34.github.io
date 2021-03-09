@@ -1,10 +1,10 @@
 package GUI.Pages;
 
 import GUI.App;
-import GUI.Widgets.Caller;
 import GUI.Dialogues.ConnectionError;
+import GUI.Widgets.Caller;
 import GUI.Widgets.RoundButton;
-
+import com.google.cloud.language.v1.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,17 +17,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.cloud.language.v1.*;
-
 import static GUI.Pages.Login.nhs;
 
-
+/**
+ * The mainpage of the program
+ */
 public class MainPage extends JFrame implements ActionListener {
     //the links of the server
     private final String BASE_URL;
@@ -53,6 +52,11 @@ public class MainPage extends JFrame implements ActionListener {
     //a manager which manages all cookies
     public static final CookieManager cookieManager = new CookieManager();
 
+    /**
+     * creates a new mainpage
+     * @param userName receptionist's username
+     * @param url server's link
+     */
     public MainPage(String userName, String url) {
         this.configurationPage = new Configuration();
         this.BASE_URL = url;
@@ -150,8 +154,11 @@ public class MainPage extends JFrame implements ActionListener {
         timer = new Timer(10000,this);
     }
 
+    /**
+     * This is a method which listens to the events
+     * @param e events
+     */
     @Override
-    //This is a method which listens to the events
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logoutButton){
             logout();
@@ -172,8 +179,10 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-
-    //check whether there are changes in the json file
+    /**
+     * check whether there are changes in the json file sent by the server
+     * @return the changes from the server
+     */
     private String checkStatus() {
         try{
             URL obj = new URL(FROM_URL);
@@ -198,7 +207,10 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-    //parse the response and display it on the screen
+    /**
+     * parse the response and display it on the screen
+     * @param response the response from the server
+     */
     private void parse(String response){
         if(response.equals("connection error")){
             new ConnectionError();
@@ -286,7 +298,11 @@ public class MainPage extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //If the caller's name is not english, we have to change the byte values into String
+    /**
+     * If the caller's name is not english, we have to change the byte values into String
+     * @param name non-english names (something like: \u803f )
+     * @return name in english
+     */
     private String convertUTF8(String name){
         char[] chars = new char[name.length()/6+1];
         int count = 0;
@@ -304,7 +320,12 @@ public class MainPage extends JFrame implements ActionListener {
         return new String(chars);
     }
 
-    //Send the relevant information to the server
+    /**
+     * Send the relevant information to the server
+     * @param id the id of the caller
+     * @param link the link to be sent to the caller
+     * @param description the name of the link
+     */
     public void send(String id, String link, String description) {
         try{
             link = link.replaceAll("https://", "");
@@ -325,8 +346,10 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-
-    //After a caller is removed, update the location of all other callers
+    /**
+     * After a caller is removed, update the location of all other callers
+     * @param id the id of the removed caller
+     */
     public void update(String id){
         callerNum--;
         numWaiting.setText(Integer.toString(callerNum));
@@ -340,7 +363,14 @@ public class MainPage extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //Save the handling records in a txt file
+    /**
+     * Save the handling records in a txt file
+     * @param name the name of the caller
+     * @param dob the date of birth of the caller
+     * @param description the description sent by the caller
+     * @param receptionist the receptionist's username
+     * @param decision the name of the link sent to the caller
+     */
     public void record(String name, String dob, String description, String receptionist, String decision)  {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
@@ -351,12 +381,17 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-    //Get the name of the receptionist
+    /**
+     * Get the name of the receptionist
+     * @return the name of the receptionist
+     */
     public String getReceptionist() {
         return userName;
     }
 
-    //After the user has configured new settings, update combo boxes in all existing callers
+    /**
+     * After the user has configured new settings, update combo boxes in all existing callers
+     */
     public void updateComboBoxes(){
         for(Caller caller : callers){
             caller.updateComboBox();
@@ -364,7 +399,9 @@ public class MainPage extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //Logout the account
+    /**
+     * Logout the account
+     */
     private void logout(){
         try{
             URL obj = new URL(LOGOUT_URL);
@@ -376,7 +413,11 @@ public class MainPage extends JFrame implements ActionListener {
         }
     }
 
-    //analyze the description using the google api
+    /**
+     * analyze the description using the google api
+     * @param description the descriptions from the caller
+     * @return an arraylist of all the entities found by google api
+     */
     public ArrayList<String> analyzeDescription(String description){
         ArrayList<String> results = new ArrayList<>();
         try (LanguageServiceClient language = LanguageServiceClient.create()) {

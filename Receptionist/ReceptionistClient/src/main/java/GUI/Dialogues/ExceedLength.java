@@ -6,6 +6,9 @@ import GUI.Pages.Login;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The page to be displayed when the number of links is larger than 10
+ */
 public class ExceedLength extends JFrame {
     public ExceedLength(){
         JTextField line1 = new JTextField();

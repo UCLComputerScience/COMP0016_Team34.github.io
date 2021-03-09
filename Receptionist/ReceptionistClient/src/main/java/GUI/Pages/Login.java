@@ -15,6 +15,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * The login page
+ */
 public class Login extends JFrame implements ActionListener {
     //the main page used in the program is a static attribute of the Login class
     public static GUI.Pages.MainPage mainPage;
@@ -132,6 +135,10 @@ public class Login extends JFrame implements ActionListener {
         this.getRootPane().setDefaultButton(loginButton);
     }
 
+    /**
+     * listens to all the events happening in this page
+     * @param e events
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
@@ -150,6 +157,13 @@ public class Login extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Send the username and password to the server link and gets a boolean on whether they are correct
+     * @param username the username of the user
+     * @param password the password of the user
+     * @param link the link of the server
+     * @return true if the details are valid, else false
+     */
     public boolean confirmIdentity(String username, String password, String link) {
         try {
             URL obj = new URL(link + "/login/");

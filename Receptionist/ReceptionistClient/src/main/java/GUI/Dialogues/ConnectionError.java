@@ -6,6 +6,9 @@ import GUI.Pages.Login;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The page to be displayed when connection related exceptions are caught
+ */
 public class ConnectionError extends JFrame {
     public ConnectionError(){
         JTextField line1 = new JTextField();

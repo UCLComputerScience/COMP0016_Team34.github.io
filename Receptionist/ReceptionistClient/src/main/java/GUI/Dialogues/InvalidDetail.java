@@ -5,8 +5,10 @@ import GUI.Pages.Login;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
+/**
+ * The page to be displayed when the user enters invalid details
+ */
 public class InvalidDetail extends JFrame {
     public InvalidDetail(){
         JTextField line1 = new JTextField();
