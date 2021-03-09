@@ -1,10 +1,12 @@
 ## Changing the server running the azure service
 
 
-When in a directory containing the code to be deployed to the server (eg after it has been ```git pull```-ed from a repository)
+When in a directory containing the code to be deployed to the server (eg after it has been ```git pull```-ed from a repository). Firstly you will need to log in.
 ```BASH
 az login
 ```
+This will direct you to a login page - log in with your azure credentials. When you have logged in return to the terminal window
+
 
 Set the subscription to be used
 ```BASH
@@ -14,7 +16,6 @@ Where
 \<sub\> is the subscription id found in the azure portal
 
 
-This will direct you to a login page - log in with your azure credentials
 ```BASH
 az webapp up --resource-group <resource-group> --location <location> --name <app-name>
 ```
@@ -23,7 +24,7 @@ Where
 \<location\> The location of the server, eg uksouth
 \<app-name\> The name of the app to be used. The server address will be https://\<app-name\>.azurewebsites.net
 
-You can optionally specify a sku and a plan using the --sku and --plan options however these are optional
+You can specify a sku and a plan using the --sku and --plan options however these are optional
 
 After this has succeeded in future to redeploy to the server the command 
 
