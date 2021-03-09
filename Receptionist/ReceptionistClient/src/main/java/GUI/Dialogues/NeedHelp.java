@@ -5,6 +5,9 @@ import GUI.Pages.Login;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * the page to be displayed when user clicks "need help" button
+ */
 public class NeedHelp extends JFrame {
 
     public NeedHelp(){

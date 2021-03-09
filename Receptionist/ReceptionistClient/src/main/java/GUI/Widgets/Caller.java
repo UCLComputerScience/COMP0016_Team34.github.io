@@ -9,8 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * A caller
+ */
 public class Caller extends JPanel implements ActionListener {
 
+    //ui properties
     private final JEditorPane description = new JEditorPane();
     private final JButton send = new JButton();
     private final JButton neglect = new JButton();
@@ -20,13 +24,19 @@ public class Caller extends JPanel implements ActionListener {
     private static final ImageIcon cross = new ImageIcon(App.currentDirectory + "cross.jpg");
     //a string without html format to be recorded
     private String descriptionWithoutFormat;
-
+    //the id of the caller
     private final String id;
-    public String getId() {
-        return id;
-    }
+    //the vertical value of the caller
     public int yValue;
 
+    /**
+     * creating a caller
+     * @param name the name of the caller
+     * @param dob the date of birth of the caller
+     * @param description the description of the caller
+     * @param y the vertical y value of the caller
+     * @param id the id of the caller
+     */
     public Caller(String name, String dob, String description, int y, String id){
         this.yValue = y;
         this.id = id;
@@ -79,6 +89,10 @@ public class Caller extends JPanel implements ActionListener {
         this.add(this.options);
     }
 
+    /**
+     * listens to all the events
+     * @param e events
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.send){
@@ -94,11 +108,28 @@ public class Caller extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * get the id of the caller
+     * @return the id of the caller
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * change the location of the caller on the screen
+     * @param value the vertical value to be set
+     */
     public void changeLocation(int value){
         yValue = value;
         this.setBounds(10,yValue,960,120);
     }
 
+    /**
+     * set the description of caller and display it on the screen
+     * @param description the description
+     * @param translated whether it is translated from other languages
+     */
     public void setDescription(String description,boolean translated){
         this.descriptionWithoutFormat = description;
         ArrayList<String> importants = Login.mainPage.analyzeDescription(description);
@@ -120,6 +151,9 @@ public class Caller extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * after the user has add/removed/changed any link, update all the drop down boxes
+     */
     public void updateComboBox(){
         options.removeAllItems();
         for(String string : Login.mainPage.configurationPage.names){

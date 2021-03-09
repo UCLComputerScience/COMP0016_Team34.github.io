@@ -7,11 +7,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * a link in the configuration page
+ */
 public class Link extends JPanel implements ActionListener {
     private final JButton remove = new JButton();
     private final JTextField nameField = new JTextField("");
     private final JTextField linkField = new JTextField("");
     public int yValue;
+
+    /**
+     * create a new link object
+     * @param y vertical value y of the link
+     */
     public Link(int y){
         this.yValue = y;
         
@@ -50,6 +58,10 @@ public class Link extends JPanel implements ActionListener {
         this.add(linkField);
     }
 
+    /**
+     * listens to all the events
+     * @param e events
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == remove){
@@ -58,15 +70,27 @@ public class Link extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * change the vertical location of the links
+     * @param value the vertical value
+     */
     public void changeLocation(int value){
         yValue = value;
         this.setBounds(10,yValue,760,73);
     }
 
+    /**
+     * get the name of the link
+     * @return the name of the link
+     */
     public String getName(){
         return this.nameField.getText();
     }
 
+    /**
+     * get the address of the link
+     * @return the address of the link
+     */
     public String getLink(){
         return this.linkField.getText();
     }

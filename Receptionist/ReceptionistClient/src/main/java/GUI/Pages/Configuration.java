@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+/**
+ * The page where the user sets the links and their names
+ */
 public class Configuration extends JFrame implements ActionListener {
     //values to be used in combo box
     public String[] names= null;
@@ -67,9 +70,11 @@ public class Configuration extends JFrame implements ActionListener {
         this.add(separator);
     }
 
-
+    /**
+     * listens to all the events happening in this page
+     * @param e event
+     */
     @Override
-    //listens to all the events happening in this page
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == save) {
             if(links.size() == 0){
@@ -89,7 +94,9 @@ public class Configuration extends JFrame implements ActionListener {
         }
     }
 
-    //add a link
+    /**
+     * add a link
+     */
     private void addLink(){
         Link link = new Link((links.size() + 1)*STEP);
         links.add(link);
@@ -97,7 +104,10 @@ public class Configuration extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    //set a jcombobox to be used by the callers
+    /**
+     * set a jcombobox to be used by the callers
+     * @param links a linkedlist of link values
+     */
     private void setComboBoxValues(LinkedList<Link> links){
         String[] names = new String[links.size()];
         String[] linkValues = new String[links.size()];
@@ -109,7 +119,10 @@ public class Configuration extends JFrame implements ActionListener {
         this.linkValues = linkValues;
     }
 
-    //update the location of all other links if user removes one
+    /**
+     * update the location of all other links if user removes one
+     * @param y the vertical y value of the link to be removed
+     */
     public void update(int y){
         links.removeIf(link -> link.yValue == y);
         for(int i = 0; i < links.size(); i++){
