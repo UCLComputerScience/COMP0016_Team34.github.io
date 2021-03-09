@@ -1,0 +1,32 @@
+
+<h1> Research <\h1>
+
+<h3> NLP Keyword Extraction <\h3>
+
+Natural language keyword detectors will be used to select keywords from the user input. These words can then be highlighted in bold to the receptionist after they have been extracted. This will allow for faster recognition of key issues by the receptionist and make it easier to select who has an immediate problem as the main parts of the problem will be more visible. 3 NLP API's were used to extract keywords from a set of tests. They were chosen as they are from large companies and has easy node.js support for their APIs. JavaScript in Node was used to write all the tests for consistency (see below).
+
+<Table>
+  API      	Correct Matches (out of 25)	Price                                   	    
+  Google [1]  	16                         	0-5,000 unit'* free.    5,000 - 1,000,000 $1/1000 units	    
+  IBM [2]      	15                         	$0.003/NLU** 1-250,000 items.  $0.001 NLU next 250,001 to 5,000,000 items	    
+  Microsoft [3]	15                         	10,000/ month for free. Speech not included or £1.118 per 1,000 transactions*** (text) and £4.100 per 1,000 transactions (Speech)	    
+<\Table>
+
+*"Documents that have more than 1,000 Unicode characters (including whitespace characters and any markup characters such as HTML or XML tags) are considered as multiple units, one unit per 1,000 characters." [1]
+
+** # of NLU Items = # of Data Units * # of Enrichment Features. 1 Data Unit = 1 group of 10,000 characters or less [2]
+
+*** For text requests, a transaction is an API call with query length up to 500 characters. [3]
+
+
+We have chosen to use the Google API. This is because it was accurate, easy to use and cheap. We can use tone analysis if we need to however initially the first thing to be implemented would be the entity analysis. These APIs also provide an interface with other languages and a HTTPs REST API meaning we will be able to use them regardless of the language is used for the receptionist client. 
+
+
+
+
+<h2> References <\h2>
+
+
+[1]"Pricing  |  Cloud Natural Language API  |  Google Cloud", Google Cloud, 2020. [Online]. Available: https://cloud.google.com/natural-language/. [Accessed: 03- Dec- 2020].
+[2]"Watson Natural Language Understanding - Pricing", Ibm.com, 2020. [Online]. Available: https://www.ibm.com/cloud/watson-natural-language-understanding/. [Accessed: 03- Dec- 2020].
+[3]" Extract data with entities | Microsoft Azure", Azure.microsoft.com, 2020. [Online]. Available: https://docs.microsoft.com/en-gb/azure/cognitive-services/luis/luis-concept-entity-types/. [Accessed: 03- Dec- 2020].
