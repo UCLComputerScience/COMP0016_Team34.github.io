@@ -4,7 +4,7 @@ import GUI.App;
 import GUI.Dialogues.ConnectionError;
 import GUI.Widgets.Caller;
 import GUI.Widgets.RoundButton;
-import com.google.cloud.language.v1.*;
+//import com.google.cloud.language.v1.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -418,25 +418,25 @@ public class MainPage extends JFrame implements ActionListener {
      * @param description the descriptions from the caller
      * @return an arraylist of all the entities found by google api
      */
-    public ArrayList<String> analyzeDescription(String description){
-        ArrayList<String> results = new ArrayList<>();
-        try (LanguageServiceClient language = LanguageServiceClient.create()) {
-            Document doc = Document.newBuilder().setContent(description).setType(Document.Type.PLAIN_TEXT).build();
-            AnalyzeEntitiesRequest request =
-                    AnalyzeEntitiesRequest.newBuilder()
-                            .setDocument(doc)
-                            .setEncodingType(EncodingType.UTF16)
-                            .build();
-            AnalyzeEntitiesResponse response = language.analyzeEntities(request);
-
-            for (Entity entity : response.getEntitiesList()) {
-                results.add(entity.getName());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            new ConnectionError();
-        }
-        results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
-        return results;
-    }
+//    public ArrayList<String> analyzeDescription(String description){
+//        ArrayList<String> results = new ArrayList<>();
+//        try (LanguageServiceClient language = LanguageServiceClient.create()) {
+//            Document doc = Document.newBuilder().setContent(description).setType(Document.Type.PLAIN_TEXT).build();
+//            AnalyzeEntitiesRequest request =
+//                    AnalyzeEntitiesRequest.newBuilder()
+//                            .setDocument(doc)
+//                            .setEncodingType(EncodingType.UTF16)
+//                            .build();
+//            AnalyzeEntitiesResponse response = language.analyzeEntities(request);
+//
+//            for (Entity entity : response.getEntitiesList()) {
+//                results.add(entity.getName());
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            new ConnectionError();
+//        }
+//        results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
+//        return results;
+//    }
 }
