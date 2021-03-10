@@ -1,16 +1,25 @@
-Before running the program, use the credential to enable google api,
-Replace the (----) with your own directory, and execute:
-IN WINDOWS:
-set GOOGLE_APPLICATION_CREDENTIALS=(----)\COMP0016_Team34.github.io\Receptionist\ReceptionistClient\src\main\resources\jsonCredential\credential.json
-IN MAC/LINUX:
-export GOOGLE_APPLICATION_CREDENTIALS="(----)\COMP0016_Team34.github.io\Receptionist\ReceptionistClient\src\main\resources\jsonCredential\credential.json"
+To run the client, go inside the target folder and click on "Project.exe". 
+Running the client does not require any further actions, but it must be run in the target folder.
+If you want to move the executable file to other directories, please move the whole target folder.
+----------------------------------------------------------------------------------------------------------------------------------
+To get the records for caller handling, go to the target folder,then go to the classes folder. All the records are recorded in the "record.txt".
+----------------------------------------------------------------------------------------------------------------------------------
+Please notice that the current client has disabled the google nlp processing feature.
+Without this feature, the client does not set the keywords in callers descriptions in bold.
 
-To generate the jar file and other resources, use
+This is because the developers are NOT provided with a payed google cloud account, and the developer is not responsible for paying for this service. However the developers have achieved that feature in development using the developer's own google account.
+
+To enable this feature, follow the steps below:
+1. visit https://cloud.google.com/natural-language/docs/quickstarts
+follow the tutorial and set a credential.
+2. go to src\main\java\GUI folder, and make following amendments to the code:
+    2.1 go to the Pages folder, open Mainpage.java ,uncomment line 7, uncomment line 421 to 441.
+    2.2 go to the Widges folder, open Caller.java, comment line 135, uncomment line 136.
+3. go back to the "ReceptionistClient" folder, open cmd in this folder, enter
+mvn clean
 mvn package
-
-To run the jar file, go inside the target folder, and execute    
+4. copy the jre folder and paste it into target folder
+5. go to target folder, open a cmd, and enter:
 java -cp ReceptionistClient-1.0-SNAPSHOT.jar GUI.App
-
-
-BELOW ARE FOR TEST PURPOSES AND SHOULD BE REMOVED
-set GOOGLE_APPLICATION_CREDENTIALS=D:\COMP0016\COMP0016_Team34.github.io\Receptionist\ReceptionistClient\src\main\resources\jsonCredential\credential.json
+This should allow the program to run the client as a jar file
+6.pack the jar into an exe with any tool 
