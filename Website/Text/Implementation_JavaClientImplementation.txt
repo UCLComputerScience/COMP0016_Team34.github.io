@@ -8,6 +8,17 @@ Inside Dialogues package, there are dialogues that will be shown to user when ce
 Inside Widgets package, there are classes designed to implement the client.
 All the classes are sufficiently commented in javadoc formats for each method/class. 
 Please view source code for more information.
+<b>Client work flow</b>
+[javaimplementation.png]
+After starting the program, the receptionist sees a login page, on which he is able to enter his username, password and the address of the server in use. There is also a needhelp button, he gets all the necessary information from it when he needs technical support. 
+
+After logging in, he sees a configuration page, on which he can add up to 10 links and store them. He can also remove any of them using remove. But he has to configure at least 1 link to send to the callers.
+
+ After he clicked on the save and close button, the internal timer of the program starts, and the program gets the changes of the callers queue from the server every 10 seconds. The name, date of birth of the callers are presented to the receptionist. The description received is sent to a google natural language processing server, and that server returns a list of keywords. Then the client sets all the keywords in the description in bold and display it to the receptionist. 
+
+The receptionist can then send any link he configured to the caller using the drop-down box. After he clicks on send, the client sends the server relevant information, and stores this caller in a txt file. The receptionist can also remove any prank callers using the cross button on the top right corner, and the client send a warning to the caller.
+
+The receptionist can click on the settings button and configure the links at any time, he can click on the logout button to log out of the account. The client then informs the server that this receptionist has logged out.
 <b>Plugins and dependencies</b>
 This project is managed and built using maven. It relies on following plugins/dependencies:
 Shade plugin, launch4j plugin: These plugins are responsible for generating an .exe file for the project. They are included to produce an executable file for the project, and there isn't many details to explain.
