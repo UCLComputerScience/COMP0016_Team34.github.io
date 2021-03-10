@@ -9,7 +9,7 @@ Without this feature, the client does not set the keywords in callers descriptio
 
 This is because the developer is NOT provided with a payed google cloud account, and the developer is not responsible for paying for this service. However the developer has achieved this feature in development using the developer's own google account.
 
-To enable this feature, follow the steps below:
+To enable this feature, follow the steps below [WARNING: this is a task for developers but not users]
 1. visit https://cloud.google.com/natural-language/docs/quickstarts
 follow the tutorial and set a credential.
 2. go to src\main\java\GUI folder, and make following amendments to the code:
