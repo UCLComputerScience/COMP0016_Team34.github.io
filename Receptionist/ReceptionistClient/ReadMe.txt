@@ -19,8 +19,7 @@ follow the tutorial and set a credential.
 mvn clean
     Then enter
 mvn package
-4. copy the jre folder and paste it into target folder
-5. go to target folder, open a cmd, and enter:
+4. go to target folder, open a cmd, and enter:
 java -cp ReceptionistClient-1.0-SNAPSHOT.jar GUI.App
 This runs the client as a jar file
-6.pack the jar into an exe with any tool 
+5.pack the jar into an exe with any tool 

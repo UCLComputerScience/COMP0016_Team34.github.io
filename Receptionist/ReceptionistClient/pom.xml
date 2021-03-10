@@ -101,7 +101,7 @@
                                 <maxVersion>1.8.0</maxVersion>
                                 <initialHeapSize>512</initialHeapSize>
                                 <maxHeapSize>1024</maxHeapSize>
-                                <path>./jre</path>
+                                <path>./classes/jre</path>
                             </jre>
                             <versionInfo>
                                 <fileVersion>1.0.0.0</fileVersion>
