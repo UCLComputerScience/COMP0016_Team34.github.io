@@ -195,14 +195,14 @@ We had another meeting with the clients, joined by Dean Mohamedally and Atia Raf
 - Requires suggestions from clients
 
 ### 1-03
--Set up postgres database on azure
--Set up login functionality using djangos built in systems
--Added warning page for serious injuries
+- Set up postgres database on azure
+- Set up login functionality using djangos built in systems
+- Added warning page for serious injuries
 
 ### 10-03
--Packed the client into an executable file
--Disabled the google nlp feature on client in preparation for deployment
--Updated development blog on java client
+- Packed the client into an executable file
+- Disabled the google nlp feature on client in preparation for deployment
+- Updated development blog on java client
 
 
 ### Code
