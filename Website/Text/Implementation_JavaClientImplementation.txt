@@ -1,0 +1,32 @@
+<h1><b>Java Client Implementation</b></h1>
+<b>General introduction</b>
+The client for the receptionists is coded using java. The project is managed and built using maven. The libraries in use is java standard libraries, google nlp libraries.  The UI design uses java swing library.
+<b>Source code introduction</b>
+There are three packages and one main class "App" responsible for the execution process.
+Inside Pages package, there are three classes, each responsible for the login page, link configuration page, main page.
+Inside Dialogues package, there are dialogues that will be shown to user when certain behaviours occur.
+Inside Widgets package, there are classes designed to implement the client.
+All the classes are sufficiently commented in javadoc formats for each method/class. 
+Please view source code for more information.
+<b>Plugins and dependencies</b>
+This project is managed and built using maven. It relies on following plugins/dependencies:
+Shade plugin, launch4j plugin: These plugins are responsible for generating an .exe file for the project. They are included to produce an executable file for the project, and there isn't many details to explain.
+Google nlp dependency: This dependency is responsible for highlighting keywords in user's descriptions. After the client gets the user's description from the server, the client sends it to the google nlp server and the google nlp server sends back a list of keywords of that description. Then the client displays the description on the screen with the keywords in bold
+<b>Authentication and interaction with the server</b>
+The interaction with the server is achieved using http get and post methods. 
+The cookies sent from the server are managed by a single cookie manager. 
+The client gets the username and password and send them to the server using post method, then get the confirmation from the server using get method. 
+The client keeps receiving changes of the queue sent from the server and updates it on the screen. 
+Whenever a decision is made by the receptionist, the client sends it to the server using post method.
+When the receptionist has logged out, the client sends this info to the server.
+<b>Deployment</b>
+There are jar and executable files for this project, with more details specified in the Receptionist/ReceptionistClient/readme.txt in the github repository.
+<b>Data recording</b>
+The callers records are stored in a txt file. Ideally, all the caller data should be stored in a online database, since we are not given any available NHS database, we can only store the data locally.
+
+
+
+
+
+
+

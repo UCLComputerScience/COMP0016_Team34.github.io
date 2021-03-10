@@ -1,0 +1,39 @@
+<h1><b>User Interface Design</b></h1>
+The user interface in this program is divided into two parts:
+UI for callers, UI for receptionists
+
+<h1><b>User Interface for callers</b></h1>
+<h1><b>Design principles</b></h1>
+Considering the callers might not be familiar with the browser or how to use a website, we decided to make the UI simple and easy to use. This means we only keep the essential functions in the web pages and use a precise and efficient user interface.
+<h1><b>Sketches</b></h1>
+The callers are expected to visit the website using their mobile devices(though visit the website using computers does not affect their experience), the sketches are shown below:
+[callerskecth1.png]
+[callerskecth2.png]
+The first page is where the user input their personal details, and after doing so, the second page is what the caller sees when he waits in a queue.
+<h1><b>Final user interface in use</b></h1>
+The first warning page shown to the user:
+[callerui1.jpg]
+The page where caller inputs personal details:
+[callerui2.jpg]
+The pages can be displayed in another language(For example Chinese):
+[callerui3.jpg]
+After the caller hits submit, he is brought to the waiting page where he can see his position in the queue and estimated waiting time. By entering descriptions and hitting submit, his issues can be viewed by the receptionists.
+[callerui4.jpg]
+When the receptionist has sent the caller a link, the caller shall see a page like this:
+By clicking the button, he is brought to a Teams room with a nurse/gp/pharmacist……
+[callerui5.jpg]
+
+
+<h1><b>User Interface for receptionists</b></h1>
+<h1><b>Design principles</b></h1>
+The application should be able to achieve all the functions specified in the requirements. The user interface should allow the receptionists to view the information of callers clearly and handle them effectively. So, the design of UI aims at clarity and efficiency.
+<h1><b>Sketches</b></h1>
+[receptionistsketch1.png]
+This is the page where receptionists can see and handle all the callers
+<h1><b>Final user interface in use</b></h1>
+The login screen of the receptionist.
+[receptionistui1.png]
+After logging in, the receptionist set the links of the Teams rooms here.
+[receptionistui2.png]
+This is the main page where the receptionist views and manages all callers.
+[receptionistui3.png]
