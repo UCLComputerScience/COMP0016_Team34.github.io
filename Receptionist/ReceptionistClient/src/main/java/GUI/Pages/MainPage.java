@@ -4,7 +4,7 @@ import GUI.App;
 import GUI.Dialogues.ConnectionError;
 import GUI.Widgets.Caller;
 import GUI.Widgets.RoundButton;
-//import com.google.cloud.language.v1.*;
+import com.google.cloud.language.v1.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,25 +79,25 @@ public class MainPage extends JFrame implements ActionListener {
         JLabel waiting = new JLabel();
         waiting.setText("callers remaining");
         waiting.setBounds(70,70,400,55);
-        waiting.setFont(new Font("Calibri", Font.BOLD  ,35));
+        waiting.setFont(new Font("Calibri", Font.BOLD  ,30));
         waiting.setForeground(Color.BLACK);
 
         JLabel title = new JLabel();
         title.setText("Q-Vu System");
         title.setBounds(180,17,200,55);
-        title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC ,35));
+        title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC ,30));
         title.setForeground(new Color(0xFFFFFF));
 
         JLabel username = new JLabel();
         username.setText(userName);
         username.setBounds(580,10,300,55);
-        username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,25));
+        username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,20));
         username.setForeground(new Color(0xFFFFFF));
 
         JLabel loggedinas = new JLabel();
         loggedinas.setText("Logged in as");
         loggedinas.setBounds(380,10,200,55);
-        loggedinas.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,35));
+        loggedinas.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,30));
         loggedinas.setForeground(new Color(0xFFFFFF));
 
         JSeparator separator = new JSeparator();
@@ -105,7 +105,7 @@ public class MainPage extends JFrame implements ActionListener {
 
         numWaiting.setText(Integer.toString(callerNum));
         numWaiting.setBounds(10,63,60,55);
-        numWaiting.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,35));
+        numWaiting.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,30));
         numWaiting.setForeground(Color.BLACK);
 
         ImageIcon logout = new ImageIcon(App.currentDirectory + "logout.jpg");
@@ -133,7 +133,7 @@ public class MainPage extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);
-        this.setBounds(500,40,1000,1000);
+        this.setBounds(0,0,1000,1000);
         this.getContentPane().setBackground(new Color(2, 95, 185));
         this.add(nhsIcon);
         this.add(title);
@@ -418,25 +418,25 @@ public class MainPage extends JFrame implements ActionListener {
      * @param description the descriptions from the caller
      * @return an arraylist of all the entities found by google api
      */
-//    public ArrayList<String> analyzeDescription(String description){
-//        ArrayList<String> results = new ArrayList<>();
-//        try (LanguageServiceClient language = LanguageServiceClient.create()) {
-//            Document doc = Document.newBuilder().setContent(description).setType(Document.Type.PLAIN_TEXT).build();
-//            AnalyzeEntitiesRequest request =
-//                    AnalyzeEntitiesRequest.newBuilder()
-//                            .setDocument(doc)
-//                            .setEncodingType(EncodingType.UTF16)
-//                            .build();
-//            AnalyzeEntitiesResponse response = language.analyzeEntities(request);
-//
-//            for (Entity entity : response.getEntitiesList()) {
-//                results.add(entity.getName());
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            new ConnectionError();
-//        }
-//        results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
-//        return results;
-//    }
+    public ArrayList<String> analyzeDescription(String description){
+        ArrayList<String> results = new ArrayList<>();
+        try (LanguageServiceClient language = LanguageServiceClient.create()) {
+            Document doc = Document.newBuilder().setContent(description).setType(Document.Type.PLAIN_TEXT).build();
+            AnalyzeEntitiesRequest request =
+                    AnalyzeEntitiesRequest.newBuilder()
+                            .setDocument(doc)
+                            .setEncodingType(EncodingType.UTF16)
+                            .build();
+            AnalyzeEntitiesResponse response = language.analyzeEntities(request);
+
+            for (Entity entity : response.getEntitiesList()) {
+                results.add(entity.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            new ConnectionError();
+        }
+        results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
+        return results;
+    }
 }

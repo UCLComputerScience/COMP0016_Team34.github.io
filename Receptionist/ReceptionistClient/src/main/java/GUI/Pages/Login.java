@@ -131,7 +131,7 @@ public class Login extends JFrame implements ActionListener {
         this.add(passwordInput);
         this.add(linkInput);
         this.add(separator);
-        this.setBounds(600, 300, 500, 450);
+        this.setBounds(0, 0, 500, 450);
         this.getRootPane().setDefaultButton(loginButton);
     }
 

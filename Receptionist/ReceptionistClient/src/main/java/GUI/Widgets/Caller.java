@@ -132,8 +132,8 @@ public class Caller extends JPanel implements ActionListener {
      */
     public void setDescription(String description,boolean translated){
         this.descriptionWithoutFormat = description;
-        ArrayList<String> importants = null;
-//        ArrayList<String> importants = Login.mainPage.analyzeDescription(description);
+//        ArrayList<String> importants = null;
+        ArrayList<String> importants = Login.mainPage.analyzeDescription(description);
         if(importants == null){
             this.description.setText(description);
         } else {

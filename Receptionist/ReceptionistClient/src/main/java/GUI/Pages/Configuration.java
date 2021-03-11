@@ -62,7 +62,7 @@ public class Configuration extends JFrame implements ActionListener {
         this.setVisible(true);
         this.setLayout(null);
         this.setResizable(false);
-        this.setBounds(600, 80, 780, 950);
+        this.setBounds(100, 20, 780, 950);
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.add(save);
         this.add(add);
