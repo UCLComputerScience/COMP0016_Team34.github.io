@@ -140,7 +140,7 @@ def update_caller_time(request):
         return HttpResponseRedirect("/cookieWarning/")
     if caller_id in urls_to_send:
         url = urls_to_send[caller_id]
-        print(url.get_url(),url.get_description())
+        # del callers[caller_id] #They have left and been sent a link so we can remove them
         return HttpResponse(json.dumps({"url": "/links/"}), content_type='application/json')
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
@@ -223,14 +223,17 @@ def logout_view(request):
 
 @csrf_exempt
 def get_queue_position(request):
-    caller_id = request.POST['id']
+    try:
+        caller_id = request.POST['id']
+    except:
+        return HttpResponse("0")
     if request.method == "POST":
         pos = get_pos(caller_id)
         return HttpResponse(str(pos))
     
 
 def get_pos(caller_id):
-    if caller_id != 'None':
+    if caller_id != 'None' and caller_id in callers:
         caller_time = callers[caller_id].get_start()
         position = 1
         for caller_id in callers:
