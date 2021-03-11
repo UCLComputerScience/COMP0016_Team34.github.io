@@ -108,6 +108,7 @@ def get_All_JSON(request):
 
 
 def get_queue(request):
+    desc = False
     try:
         caller_id = request.COOKIES.get('id')
     except:
@@ -122,7 +123,11 @@ def get_queue(request):
                     lang = '/en/en'
             except:
                 lang = '/en/en'
-            callers[caller_id].add_language(lang)
+            
+            try:
+                callers[caller_id].add_language(lang)
+            except:
+                return HttpResponseRedirect("/cookieWarning/")
             data = form.cleaned_data
             desc = translator.translate(data["desc"]).text
             callers[caller_id].add_description(desc)
@@ -130,7 +135,7 @@ def get_queue(request):
     # for caller in callers:
     #     print(callers[caller].id, callers[caller].description)
     form = DescForm()
-    return render(request, "caller/queue.html", {"desc_form": form, "id": caller_id})
+    return render(request, "caller/queue.html", {"desc_form": form, "id": caller_id,"description":desc})
 
 
 def update_caller_time(request):
@@ -139,8 +144,6 @@ def update_caller_time(request):
     except:
         return HttpResponseRedirect("/cookieWarning/")
     if caller_id in urls_to_send:
-        url = urls_to_send[caller_id]
-        print(url.get_url(),url.get_description())
         return HttpResponse(json.dumps({"url": "/links/"}), content_type='application/json')
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
@@ -223,14 +226,17 @@ def logout_view(request):
 
 @csrf_exempt
 def get_queue_position(request):
-    caller_id = request.POST['id']
+    try:
+        caller_id = request.POST['id']
+    except:
+        return HttpResponse("0")
     if request.method == "POST":
         pos = get_pos(caller_id)
         return HttpResponse(str(pos))
     
 
 def get_pos(caller_id):
-    if caller_id != 'None':
+    if caller_id != 'None' and caller_id in callers:
         caller_time = callers[caller_id].get_start()
         position = 1
         for caller_id in callers:
@@ -256,6 +262,10 @@ def show_links(request):
         return HttpResponseRedirect("/cookieWarning/")
     if str(caller_id) in urls_to_send:
         url = urls_to_send[caller_id]
+        del urls_to_send[caller_id]
+        del callers[caller_id]
         return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
-
+    
+    del urls_to_send[caller_id]
+    del callers[caller_id]
     return HttpResponseRedirect("/")
