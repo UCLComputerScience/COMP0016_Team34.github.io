@@ -108,6 +108,7 @@ def get_All_JSON(request):
 
 
 def get_queue(request):
+    desc = False
     try:
         caller_id = request.COOKIES.get('id')
     except:
@@ -122,7 +123,11 @@ def get_queue(request):
                     lang = '/en/en'
             except:
                 lang = '/en/en'
-            callers[caller_id].add_language(lang)
+            
+            try:
+                callers[caller_id].add_language(lang)
+            except:
+                return HttpResponseRedirect("/cookieWarning/")
             data = form.cleaned_data
             desc = translator.translate(data["desc"]).text
             callers[caller_id].add_description(desc)
@@ -130,7 +135,7 @@ def get_queue(request):
     # for caller in callers:
     #     print(callers[caller].id, callers[caller].description)
     form = DescForm()
-    return render(request, "caller/queue.html", {"desc_form": form, "id": caller_id})
+    return render(request, "caller/queue.html", {"desc_form": form, "id": caller_id,"description":desc})
 
 
 def update_caller_time(request):
