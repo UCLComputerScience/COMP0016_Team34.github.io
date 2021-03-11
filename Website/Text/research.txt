@@ -12,21 +12,51 @@ Natural language keyword detectors will be used to select keywords from the user
   Microsoft [3]	15                         	10,000/ month for free. Speech not included or £1.118 per 1,000 transactions*** (text) and £4.100 per 1,000 transactions (Speech)	    
 <\Table>
 
+<a src=https://github.com/UCLComputerScience/COMP0016_Team34.github.io/tree/main/NLP_Test/>
+
+<smaller text - not sure if that's possible>
 *"Documents that have more than 1,000 Unicode characters (including whitespace characters and any markup characters such as HTML or XML tags) are considered as multiple units, one unit per 1,000 characters." [1]
 
 ** # of NLU Items = # of Data Units * # of Enrichment Features. 1 Data Unit = 1 group of 10,000 characters or less [2]
 
 *** For text requests, a transaction is an API call with query length up to 500 characters. [3]
-
+<\smaller text>
 
 We have chosen to use the Google API. This is because it was accurate, easy to use and cheap. We can use tone analysis if we need to however initially the first thing to be implemented would be the entity analysis. These APIs also provide an interface with other languages and a HTTPs REST API meaning we will be able to use them regardless of the language is used for the receptionist client. 
 
 
+<h3> Servers <\h3>
+
+As we are using the Microsoft Azure cloud servers to host this project using a server framework that has a built in template for the server. The ones we decided to look at were the python based flask and django, and the java based tomcat. These were chosen as we were familiar with the languages, they have good documentation and could be configured from azure. We chose not to use the flask server as it is a micro web framework so does not have a lot of the inbuilt functionality other systems may have [4]. This means we may have to write more code or configure things ourselves more. While this is not always a bad thing we felt using a service that provided these things eg a templating engine etc may be better. 
+Tomcat allows for a whole web app to be written in java and manages it all using java code [5]. It would work well as for managing the server however the version that was on azure used an older version of Java and therefore we felt it may cause issues going forward because of the older version of java being used such as trying to use newer documentation or featured that had not been implemented when this version was created. Therefore we chose to use the Django server for our project. It has a built in framework engine as well as a simple way to manage urls, requests, forms and the other features we needed for the project [6]. This means the server code will be written using python and the azure django template.
+
+<h3> Receptionist code </h3>
+
+Initially we chose to use python for the receptionist client. This was due to its ease of use and simplicity of code. However we then chose to switch to using swing and java. This allows for a more structured code than the python, this is more manageable and cleaner giving a better final product. We were also more proficient using java so the code can be written faster and to a higher quality. 
+
+<h3> Similar products </h3>
+<h4> Klinik <\h4> 
+
+When in discussion with our clients we were told about a product that is similar to ours called Klinik. They have created a triage system that can be used to help speed up accessing healthcare services and also improve the customer experience and accessibility [7]. This is somewhat different to our system as our will not be a triage system however the goals of speeding up the process of accessing healthcare is the goal of us both. They use an AI system to determine what actions to be taken however ours will be a receptionist instead, they have the ability to prioritise who should be seen first, again this is done automatically however a system like this is something that our system should do. Similarly they allow for a greater degree of data recording which can then be used to analyse performance and therefore improve patient experience. This is again something our project can incorporate. They have found that their system has improved the experience of callers and have found people happy to use the system, 90% of users rated the system good or excellent [8].  This is something we would aim to replicate with our system and similarly improve the experience of callers.
+
+<h3> user research </h3>
+
+We created two questionnaires at the beginning of the project in order to gauge peoples opinions of calling up companies, especially the NHS. We also asked them to imagine being a receptionist (we could not contact actual receptionists within the ethical restraints) and answer questions about how they think problems may occur. Everyone we asked cited a variation of long wait times or unfriendly responses as the main thing they were annoyed by and said that they would like a quick and friendly experience. A number of people said that losing some of the person-to-person in favour of a faster response time would be worth it however this varied from person to person. This would mean that there would need to be the potential to have person-to-person contact however there could be the potential to not talk to every caller (although this would be up to the GP practice's policies).
+Out of the receptionist questionnaire we found that people thought the ability to see how many people are in the queue is a very useful feature. We would want this to be an essential feature as all the people we asked said it would be an essential feature. They also agreed that the person-to-person contact can be reduced for a greater rate of being seen. This supports the notion that we can have some callers who don't get talked to and are just forwarded on to whoever they need to see. In terms of how to prioritise the callers in the queue there is a variety of different opinions. Of the people who answered half of them said they would prioritise based on time and the other half said how significant the issue will be. This indicates we need to have the ability for the receptionist to decide how they will use the system and not force one way of using it. This will of course also depend on the GP practice's internal policies.     
+
+<h3> Professional questionnaire </h3>
+
+We sent out a questionnaire to actual GPs and receptionists to get their opinions on how the system will improve their jobs after being given a brief description of how the system will work. Everyone who responded (6 people) said they agreed or strongly agreed with the statement "I think this software will speed up patients queue time". They also all said that the system would be useful to the NHS and the majority said that it solves a problem that normal phone queues can not. The opinion on if this will improve caller experience was mixed with 2 people each for no option, agree and disagree however none of them disagreed that it would make the experience better. 
 
 
 <h2> References <\h2>
 
 
-[1]"Pricing  |  Cloud Natural Language API  |  Google Cloud", Google Cloud, 2020. [Online]. Available: https://cloud.google.com/natural-language/. [Accessed: 03- Dec- 2020].
-[2]"Watson Natural Language Understanding - Pricing", Ibm.com, 2020. [Online]. Available: https://www.ibm.com/cloud/watson-natural-language-understanding/. [Accessed: 03- Dec- 2020].
-[3]" Extract data with entities | Microsoft Azure", Azure.microsoft.com, 2020. [Online]. Available: https://docs.microsoft.com/en-gb/azure/cognitive-services/luis/luis-concept-entity-types/. [Accessed: 03- Dec- 2020].
+[1]"Pricing  |  Cloud Natural Language API  |  Google Cloud", Google Cloud, 2020. [Online]. Available: https://cloud.google.com/natural-language/. 
+[2]"Watson Natural Language Understanding - Pricing", Ibm.com, 2020. [Online]. Available: https://www.ibm.com/cloud/watson-natural-language-understanding/.
+[3]" Extract data with entities | Microsoft Azure", Azure.microsoft.com, 2020. [Online]. Available: https://docs.microsoft.com/en-gb/azure/cognitive-services/luis/luis-concept-entity-types/.
+[4]"Foreword — Flask Documentation (1.1.x)", Flask.palletsprojects.com, 2021. [Online]. Available: https://flask.palletsprojects.com/en/1.1.x/foreword/.
+[5] "Apache Tomcat" tomcat.apache.org, 2021. [Online]. Available: http://tomcat.apache.org/.
+[6]"Foreword — Flask Documentation (1.1.x)", Flask.palletsprojects.com, 2021. [Online]. Available: https://flask.palletsprojects.com/en/1.1.x/foreword/.
+[7]"About - Klinik Healthcare Solutions", Klinik, 2020. [Online]. Available: https://klinikhealthcaresolutions.com/about-us/.
+[8]"Benefits - Klinik Healthcare Solutions", Klinik, 2020. [Online]. Available: https://klinikhealthcaresolutions.com/benefits/.
