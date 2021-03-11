@@ -139,8 +139,6 @@ def update_caller_time(request):
     except:
         return HttpResponseRedirect("/cookieWarning/")
     if caller_id in urls_to_send:
-        url = urls_to_send[caller_id]
-        # del callers[caller_id] #They have left and been sent a link so we can remove them
         return HttpResponse(json.dumps({"url": "/links/"}), content_type='application/json')
     if request.method == "POST":
         caller_id = str(request.POST.get("id"))
@@ -259,6 +257,10 @@ def show_links(request):
         return HttpResponseRedirect("/cookieWarning/")
     if str(caller_id) in urls_to_send:
         url = urls_to_send[caller_id]
+        del urls_to_send[caller_id]
+        del callers[caller_id]
         return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
-
+    
+    del urls_to_send[caller_id]
+    del callers[caller_id]
     return HttpResponseRedirect("/")
