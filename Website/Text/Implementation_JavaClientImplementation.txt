@@ -35,9 +35,41 @@ There are jar and executable files for this project, with more details specified
 <b>Data recording</b>
 The callers records are stored in a txt file. Ideally, all the caller data should be stored in a online database, since we are not given any available NHS database, we can only store the data locally.
 
+<h1> Django Server & Caller interface </h1>
+
+<b> General introduction </b>
+The server runs on a Microsoft Azure server using a python Django framework. The caller interface is a set of html pages which are created from django templates allowing us to customise the pages for the callers. This also uses CSS too style the site and a small amount of AJAX JavaScript for sending a few messages from the client to the server.
+
+<b>Source code introduction</b>
+The code for the Django is split into multiple python files. The most important are <code> views.py </code>, <code> urls.py </code> and <code> caller.py </code>. There are a few more files included as well which manage forms and storing urls while they are waiting to be sent to a caller. 
+<code> views.py </code> contains all the logic to be executed when a caller navigates to a certain url. This includes processing any data sent in a POST request, creating and updating caller objects, generating responses and the other functions that the server must perform. 
+<code> urls.py </code> maps the urls the caller enters to a view in <code> views.py </code>. This is how the server knows which view to use for which url. 
+<code> caller.py </code> holds the code for the caller objects. One of these is created for each caller to the system. It stores all the data about the caller, name, date of birth, description, the last time they were known to be in the queue (every 5 seconds the caller sends an update to say they are still in the queue). It also handles the creation of the json for its own changes. When something is updated this field is added to a dictionary of changes and when it is requested this dictionary is reset. 
+
+<b> Caller interface </b>
+The callers when they initially go to the url of the system they are presented with a start page. This requires them to say they have no major problems and if they do then recommend they call 999. 
+
+<screenshot of warning page - need to take>
+
+They are then presented with a page to enter their name and date of birth for the receptionist. This then forwards them on to the queue screen. They can see how many people are in the queue ahead of you and also the GP practice will be able to put news or internal advertising on this page to show callers what the practice is doing. This page also contains a box to enter a description of the problem you are having, this can be input in a foreign (non-English) language and the server will translate it (and show a flag to the receptionists that is has been translated).
+
+<Screenshot of info & queue pages>
+
+Then finally when a caller is sent a link by the receptionist they are taken out of the queue and directed to a page with a button explaining they have been sent a link and where it goes. They can then press the link and be forwarded on wherever they need to be. 
+
+<b>Dependencies</b>
+This project has a requirements.txt file which can be installed using pip and uses the following python modules 
+Django, The server framework used to serve the pages, manage data etc [1]
+whitenoise, Adds the ability to host static files and is used by django [2]
+psycopg2-binary, a porsgres database adaptor for python [3]
+googletrans, used to translate descriptions from the callers into English [4]
+   
 
 
+<h2> References <\h2>
 
-
-
+[1] Django, [Online]. Available: https://www.djangoproject.com/
+[2] WhiteNoise, [Online]. Available: http://whitenoise.evans.io/en/stable/
+[3] psycopg, [Online]. Available: https://www.psycopg.org/
+[4] Googletrans, [Online]. Available: https://github.com/ssut/py-googletrans
 
