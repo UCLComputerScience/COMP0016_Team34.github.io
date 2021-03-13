@@ -8,16 +8,126 @@
   <body>
 
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="systemdesign.html">System Design</a></li>
-        <li><a href="djangoimplementation.html">Django Implementation</a></li>
-        <li><a href="javaclientimplementation.html">Java Client Implementation</a></li>
-        <li><a href="requirements.html">Requirements</a></li>
-        <li><a href="innovations.html">Innovations</a></li>
-        <li><a href="testing.html">Testing</a></li>
-        <li><a href="evaluation.html">Evaluation</a></li>
-    </ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="systemdesign.html">System Design</a></li>
+      <li><a href="djangoimplementation.html">Django Implementation</a></li>
+      <li><a href="uidesign.html">UI Design</a></li>
+      <li><a href="javaclientimplementation.html">Java Client Implementation</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="innovations.html">Innovations</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="evaluation.html">Evaluation</a></li>
+  </ul>
+
+
+  <h1><b>Java Client Implementation</b></h1>
+
+  <b>General introduction</b>
+  <br>
+  The client for the receptionists is coded using java. The project is managed and built using maven. The libraries in use is java standard libraries, google nlp libraries.  The UI design uses java swing library.
+  <br>
+  <br>
+  <b>Source code introduction</b>
+  <br>
+  There are three packages and one main class "App" responsible for the execution process.
+  Inside Pages package, there are three classes, each responsible for the login page, link configuration page, main page.
+  Inside Dialogues package, there are dialogues that will be shown to user when certain behaviours occur.
+  Inside Widgets package, there are classes designed to implement the client.
+  All the classes are sufficiently commented in javadoc formats for each method/class. 
+  Please view source code for more information.
+  <br>
+  <br>
+  <b>Client work flow</b>
+  <br>
+  <img src="javaimplementation.png" style="display: block;margin-left: auto;margin-right: auto; width: 30%;">
+  <br>
+  After starting the program, the receptionist sees a login page, on which he is able to enter his username, password and the address of the server in use. There is also a needhelp button, he gets all the necessary information from it when he needs technical support. 
+  <br>
+  After logging in, he sees a configuration page, on which he can add up to 10 links and store them. He can also remove any of them using remove. But he has to configure at least 1 link to send to the callers.
+  <br>
+  After he clicked on the save and close button, the internal timer of the program starts, and the program gets the changes of the callers queue from the server every 10 seconds. The name, date of birth of the callers are presented to the receptionist. The description received is sent to a google natural language processing server, and that server returns a list of keywords. Then the client sets all the keywords in the description in bold and display it to the receptionist. 
+  <br>
+  The receptionist can then send any link he configured to the caller using the drop-down box. After he clicks on send, the client sends the server relevant information, and stores this caller in a txt file. The receptionist can also remove any prank callers using the cross button on the top right corner, and the client send a warning to the caller.
+  <br>
+  The receptionist can click on the settings button and configure the links at any time, he can click on the logout button to log out of the account. The client then informs the server that this receptionist has logged out.
+  <br>
+  <br>
+  <b>Plugins and dependencies</b>
+  <br>
+  This project is managed and built using maven. It relies on following plugins/dependencies:
+  Shade plugin, launch4j plugin: These plugins are responsible for generating an .exe file for the project. They are included to produce an executable file for the project, and there isn't many details to explain.
+  Google nlp dependency: This dependency is responsible for highlighting keywords in user's descriptions. After the client gets the user's description from the server, the client sends it to the google nlp server and the google nlp server sends back a list of keywords of that description. Then the client displays the description on the screen with the keywords in bold
+  <br>
+  <br>
+  <b>Authentication and interaction with the server</b>
+  <br>
+  The interaction with the server is achieved using http get and post methods. 
+  The cookies sent from the server are managed by a single cookie manager. 
+  The client gets the username and password and send them to the server using post method, then get the confirmation from the server using get method. 
+  The client keeps receiving changes of the queue sent from the server and updates it on the screen. 
+  Whenever a decision is made by the receptionist, the client sends it to the server using post method.
+  When the receptionist has logged out, the client sends this info to the server.
+  <br>
+  <br>
+  <b>Deployment</b>
+  <br>
+  There are jar and executable files for this project, with more details specified in the Receptionist/ReceptionistClient/readme.txt in the github repository.
+  <br>
+  <br>
+  <b>Data recording</b>
+  <br>
+  The callers records are stored in a txt file. Ideally, all the caller data should be stored in a online database, since we are not given any available NHS database, we can only store the data locally.
+  <br>
+  <h1> Django Server & Caller interface </h1>
+  <br>
+  <b> General introduction </b>
+  <br>
+  The server runs on a Microsoft Azure server using a python Django framework. The caller interface is a set of html pages which are created from django templates allowing us to customise the pages for the callers. This also uses CSS too style the site and a small amount of AJAX JavaScript for sending a few messages from the client to the server.
+  <br>
+  <br>
+  <b>Source code introduction</b>
+  <br>
+  The code for the Django is split into multiple python files. The most important are <code> views.py </code>, <code> urls.py </code> and <code> caller.py </code>. There are a few more files included as well which manage forms and storing urls while they are waiting to be sent to a caller. 
+  <code> views.py </code> contains all the logic to be executed when a caller navigates to a certain url. This includes processing any data sent in a POST request, creating and updating caller objects, generating responses and the other functions that the server must perform. 
+  <code> urls.py </code> maps the urls the caller enters to a view in <code> views.py </code>. This is how the server knows which view to use for which url. 
+  <code> caller.py </code> holds the code for the caller objects. One of these is created for each caller to the system. It stores all the data about the caller, name, date of birth, description, the last time they were known to be in the queue (every 5 seconds the caller sends an update to say they are still in the queue). It also handles the creation of the json for its own changes. When something is updated this field is added to a dictionary of changes and when it is requested this dictionary is reset. 
+  <br>
+  <br>
+  <b> Caller interface </b>
+  <br>
+  The callers when they initially go to the url of the system they are presented with a start page. This requires them to say they have no major problems and if they do then recommend they call 999. 
+  <br>
+  <screenshot of warning page - need to take>
+  <br>
+  They are then presented with a page to enter their name and date of birth for the receptionist. This then forwards them on to the queue screen. They can see how many people are in the queue ahead of you and also the GP practice will be able to put news or internal advertising on this page to show callers what the practice is doing. This page also contains a box to enter a description of the problem you are having, this can be input in a foreign (non-English) language and the server will translate it (and show a flag to the receptionists that is has been translated).
+  <br>
+  <Screenshot of info & queue pages>
+  <br>
+  Then finally when a caller is sent a link by the receptionist they are taken out of the queue and directed to a page with a button explaining they have been sent a link and where it goes. They can then press the link and be forwarded on wherever they need to be. 
+  <br>
+  <br>
+  <b>Dependencies</b>
+  <br>
+  This project has a requirements.txt file which can be installed using pip and uses the following python modules 
+  Django, The server framework used to serve the pages, manage data etc [1]
+  whitenoise, Adds the ability to host static files and is used by django [2]
+  psycopg2-binary, a porsgres database adaptor for python [3]
+  googletrans, used to translate descriptions from the callers into English [4]
+  <br>
+  
+  
+  <h2> References </h2>
+  
+  [1] Django, [Online]. Available: https://www.djangoproject.com/
+  <br>
+  [2] WhiteNoise, [Online]. Available: http://whitenoise.evans.io/en/stable/
+  <br>
+  [3] psycopg, [Online]. Available: https://www.psycopg.org/
+  <br>
+  [4] Googletrans, [Online]. Available: https://github.com/ssut/py-googletrans
+  
+  
 
   </body>
 </html>

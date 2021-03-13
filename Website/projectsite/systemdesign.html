@@ -8,16 +8,32 @@
   <body>
 
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="systemdesign.html">System Design</a></li>
-        <li><a href="djangoimplementation.html">Django Implementation</a></li>
-        <li><a href="javaclientimplementation.html">Java Client Implementation</a></li>
-        <li><a href="requirements.html">Requirements</a></li>
-        <li><a href="innovations.html">Innovations</a></li>
-        <li><a href="testing.html">Testing</a></li>
-        <li><a href="evaluation.html">Evaluation</a></li>
-    </ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="systemdesign.html">System Design</a></li>
+      <li><a href="djangoimplementation.html">Django Implementation</a></li>
+      <li><a href="uidesign.html">UI Design</a></li>
+      <li><a href="javaclientimplementation.html">Java Client Implementation</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="innovations.html">Innovations</a></li>
+      <li><a href="testing.html">Testing</a></li>
+      <li><a href="evaluation.html">Evaluation</a></li>
+  </ul>
 
+
+    <h1> System Design </h1>
+
+      <img src="System.png" style="display: block;margin-left: auto;margin-right: auto;">
+      
+      <p>
+        This is the system architecture diagram for our project. The project can be split into three main sections. The caller interface, the server and the reception client. The callers interface is a set of html pages which are generated from django templates these provide the interface for the user and is used to collect data for the server and display information to the caller. The server is a Django server which combined with a Postgres database is used to manage the data. The database is used for receptionist logins but does not store any caller data and is managed directly by django. The server runs django and is therefore based on a python client. All messages are sent between them as HTTP messages, requests as GET and POST requests and then data is transferred back sometimes as text for simple things and then JSON for the more complex such as the caller data. The receptionist then has a java client which receives the data from the server, displays it to the receptionists and also provides the functionality to send over links to the callers.
+      </p>
+      <br>
+      <img src="sequence.png" style="display: block;margin-left: auto;margin-right: auto;">
+      
+      <p>
+        This diagram shows how data is sent between components of the system. The caller will join the system and be enter their details. They will then enter the queue and the server will create a caller object for that caller. When a caller updates their details eg their description then the server will also update the object for that caller, the id for the caller is also sent as a cookie to ensure the right user is changed. The callers browser will send a message every 5 seconds saying that they are still in the queue and the time this was received will be stored in the object for that caller. 
+        When a receptionist logs in they send their credentials to the server and the server will attempt to log them in. If the log in is successful then the server will remember this session as being authenticated and send a set of cookies back to the receptionist. Any further requests sent with these cookies the server will know they have been authenticated and can access sensitive data. There is a loop again where the receptionist will request the changes to the caller data - only the changes are sent each time as well as the id of that caller again to ensure the correct callers are updated. This data is sent back as a JSON file for the java to process. When a url is to be sent to the caller a POST request is made with the url, id of the caller and a description of the link. This is then stored in the server and then sent to the caller the next time they update their time. This will take the caller out of the queue and when the caller hasn't been in the queue for 10 minutes (the update time message hasn't been seen in 10 minutes) then they will be deleted.  
+      </p>  
   </body>
 </html>
