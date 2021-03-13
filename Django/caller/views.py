@@ -1,16 +1,9 @@
-from json.encoder import JSONEncoder
 from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import  render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
-from django.views import generic
-from django.utils import timezone
 
-# from .models import CallerModel
-# import datetime
 
 from .Caller import Caller
 from .Url_to_send import Url_to_send
