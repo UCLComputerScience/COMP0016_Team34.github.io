@@ -365,16 +365,14 @@ public class MainPage extends JFrame implements ActionListener {
 
     /**
      * Save the handling records in a txt file
-     * @param name the name of the caller
-     * @param dob the date of birth of the caller
      * @param description the description sent by the caller
      * @param receptionist the receptionist's username
      * @param decision the name of the link sent to the caller
      */
-    public void record(String name, String dob, String description, String receptionist, String decision)  {
+    public void record(String description, String receptionist, String decision)  {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            fileWriter.write(formatter.format(new Date()) + "|" + name + "|" + dob + "|" + description + "|" + receptionist + "|" + decision + System.lineSeparator());
+            fileWriter.write(formatter.format(new Date()) + "|" + description + "|" + receptionist + "|" + decision + System.lineSeparator());
             fileWriter.flush();
         } catch (IOException e) {
             e.getMessage();
