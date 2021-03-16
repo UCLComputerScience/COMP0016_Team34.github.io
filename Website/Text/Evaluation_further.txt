@@ -1,10 +1,25 @@
 <h1><b>Further improvements</b></h1>
+
 The project has achieved most of the features required by the clients, however it could be improved in the following aspects:
+
 <h1><b>Caller feedback mechanism</b></h1>
-In the existing calling system, after the caller clicks the link sent by receptionist, the life cycle of this caller is ended. This means if the caller is unsatisfied with the link sent, or requires further support after having an online conversation, he cannot do that within our system. What could be achieved, is: After the user clicks the link, the browser opens a new webpage for the link he clicked whilst keeps this caller in the system. Then there is a feedback page, if he is unsatisfied with the result, he should be added to the top of the queue and need to be handled again in a more proper way.
+
+Once the caller finishes their call, there is no way for the caller to provide feedback on the qaulity of the call - i.e. Was their query answered? Do still need to speak to someone? In the future, it would be useful to provide a method for callers to provide feedback on the practice. Additionally, there can be a way for callers to receive a practice number to call after they have used the system, to talk to someone if they still require help.
+
 Flow chart:
+
 [further1.png]
+
 Draft feedback page:
+
 [further2.png]
+
 <h1><b>Use online database to store caller records</b></h1>
-The current project stores all the caller records in a txt file, as we are NOT provided with any online NHS database to store the caller data. It would be more secure and efficient to store all caller records in a database.
+
+The current project stores all the caller records in a txt file, as we are NOT provided with any online NHS database to store the caller data. It would be more secure and efficient to store all caller records in a database - specifically, access to the NHS' FIHR database would allow all patient records to be consitent and centralised.
+
+<h1><b>Caller list</b></h1>
+
+It would be useful for practices to keep a log of callers that have used the system so that patients that require extra time and more personal input can be contacted
+<br>
+This can also be used for when the system is offline (e.g. over weekends) so that receptionists can see a list of callers that they would need to attend to once the system is back online.

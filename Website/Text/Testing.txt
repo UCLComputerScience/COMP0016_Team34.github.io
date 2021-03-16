@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    
-    <link rel="stylesheet" href="main.css">
-
-  </head>
-  <body>
-
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="systemdesign.html">System Design</a></li>
-      <li><a href="djangoimplementation.html">Django Implementation</a></li>
-      <li><a href="uidesign.html">UI Design</a></li>
-      <li><a href="javaclientimplementation.html">Java Client Implementation</a></li>
-      <li><a href="requirements.html">Requirements</a></li>
-      <li><a href="testing.html">Testing</a></li>
-      <li><a href="evaluation.html">Evaluation</a></li>
-  </ul>
-
-
-
 <h1><b>Testing</b></h1>
 
 We testing the system in various ways to ensure system stability and robustness
@@ -52,13 +29,8 @@ These commands were used to send data to the server to ensure the format is suit
 
 <h2><b>Java server/client</b></h2>
 
-<br>
-<div style="font-size: xx-large; color: blueviolet;"><b>Java client/server testing </b></div>
+<br><br><br>
 
 <h2><b>Client testing</b></h2>
 <br>
 We asked our clients to also test the system during a live demo so they could see first-hand what the system was capable of, as well as being able to receive feedback on the system features. This was useful to identify what features they still wanted, but also to see how the system was perceived by people outside of the development team, which is important.
-
-
-  </body>
-</html>
