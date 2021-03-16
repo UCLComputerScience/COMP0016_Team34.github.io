@@ -97,12 +97,12 @@ public class Caller extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.send){
             Login.mainPage.send(this.id,Login.mainPage.configurationPage.linkValues[options.getSelectedIndex()],Login.mainPage.configurationPage.names[options.getSelectedIndex()]);
-            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),(String) options.getSelectedItem());
+            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),(String) options.getSelectedItem());
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }else if(e.getSource() == this.neglect){
             Login.mainPage.send(this.id,"","This is a warning. Please don't waste public resources");
-            Login.mainPage.record(this.name.getText(),this.dob.getText(),this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"prank");
+            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"prank");
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }
@@ -132,7 +132,6 @@ public class Caller extends JPanel implements ActionListener {
      */
     public void setDescription(String description,boolean translated){
         this.descriptionWithoutFormat = description;
-//        ArrayList<String> importants = null;
         ArrayList<String> importants = Login.mainPage.analyzeDescription(description);
         if(importants == null){
             this.description.setText(description);
