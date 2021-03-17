@@ -246,7 +246,6 @@ def get_warning_screen(request):
 def get_news_screen(request):
     return render(request,"caller/news.html")
 
-
 def get_cookie_warning_screen(request):
     return render(request,"caller/CookieWarning.html")
 
