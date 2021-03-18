@@ -21,7 +21,7 @@ The receptionist can then send any link he configured to the caller using the dr
 The receptionist can click on the settings button and configure the links at any time, he can click on the logout button to log out of the account. The client then informs the server that this receptionist has logged out.
 <b>Plugins and dependencies</b>
 This project is managed and built using maven. It relies on following plugins/dependencies:
-Shade plugin, launch4j plugin: These plugins are responsible for generating an .exe file for the project. They are included to produce an executable file for the project, and there isn't many details to explain.
+Maven assembly complier plugin: This plugin helps compiling all the libraries into a single jar.
 Google nlp dependency: This dependency is responsible for highlighting keywords in user's descriptions. After the client gets the user's description from the server, the client sends it to the google nlp server and the google nlp server sends back a list of keywords of that description. Then the client displays the description on the screen with the keywords in bold
 <b>Authentication and interaction with the server</b>
 The interaction with the server is achieved using http get and post methods. 
