@@ -18,6 +18,7 @@ The page where caller inputs personal details:
 The pages can be displayed in another language(For example Chinese):
 [callerui3.jpg]
 After the caller hits submit, he is brought to the waiting page where he can see his position in the queue and estimated waiting time. By entering descriptions and hitting submit, his issues can be viewed by the receptionists.
+There is also a news page showing the latest news from NHS.
 [callerui4.jpg]
 When the receptionist has sent the caller a link, the caller shall see a page like this:
 By clicking the button, he is brought to a Teams room with a nurse/gp/pharmacist……
