@@ -5,12 +5,12 @@ The software is an early proof of concept for development purposes and should no
 This project is licenced under a APGLv3 Licence
 
 Dependencies used:
-Googletrans - MIT license
-whitenoise - MIT license
-Django - Creative Commons Attribution-ShareAlike 3.0 Unported License 
-googleapis / java-language - Apache Licence
-GoogleCloudPlatform / cloud-opensource-java  - Apache Licence
-apache / maven-plugins - Apache Licence
+Googletrans - MIT license, https://github.com/ssut/py-googletrans
+whitenoise - MIT license, http://whitenoise.evans.io/en/stable/
+Django - Creative Commons Attribution-ShareAlike 3.0 Unported License, https://www.djangoproject.com/
+googleapis / java-language - Apache Licence, https://github.com/googleapis/java-language
+GoogleCloudPlatform / cloud-opensource-java  - Apache Licence, https://github.com/GoogleCloudPlatform/cloud-opensource-java
+apache / maven-plugins - Apache Licence, https://github.com/apache/maven-plugins
 
 
 System developed by Joshua Mukherjee, Tansheng Geng and Shaheer Ahmed
@@ -21,3 +21,6 @@ Stephanie Coughlin from NHS
 
 Supervisors and teaching assistants: Dr Dean Mohamedally, Dr Yun Fu, Dr
 Graham Roberts, Daniele Giunchi
+
+University College London
+
