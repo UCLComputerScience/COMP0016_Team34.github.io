@@ -4,6 +4,15 @@ from django.shortcuts import  render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
+try:
+    from .secret import setup
+    setup() #were on local machine
+except:
+    pass #Were on azure
+
+from django_twilio.decorators import twilio_view
+from twilio import twiml
+
 
 from .Caller import Caller
 from .Url_to_send import Url_to_send
@@ -265,3 +274,11 @@ def show_links(request):
     del urls_to_send[caller_id]
     del callers[caller_id]
     return HttpResponseRedirect("/")
+
+@twilio_view
+
+def sms(request):
+    r = twiml.Response()
+    URL = "https://team34-comp0016-2020.azurewebsites.net/" #Change for new server
+    r.message('Thank you for messaging the Q-Vu System. Please click this link: ' + URL + ' to join the queue')
+    return r

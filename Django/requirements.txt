@@ -2,3 +2,4 @@ django>=3.1.6
 whitenoise
 psycopg2-binary
 googletrans==3.1.0a0
+django-twilio
