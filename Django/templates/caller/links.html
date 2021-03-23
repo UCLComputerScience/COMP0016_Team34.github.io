@@ -43,13 +43,17 @@
 				<div class="col"></div>
 				<div class="col-12">
 					<div class="introtext">
-						You have been sent the following link: <br>
-							<a href="https://{{sent_link}}" class="button"><button>{{description}}</button></a><br>
-						Please press this button to go to the link
+						{%if sent_link%}
+							You have been sent the following link: <br>
+								<a href="https://{{sent_link}}" class="button"><button>{{description}}</button></a><br>
+							Please press this button to go to the link
+						{%endif%}
 
 					</div>
 
-					<p> {{text}} </p>
+					{%if text%}
+						<p> {{text}} </p>
+					{%endif%}
 
 						
 				</div>
