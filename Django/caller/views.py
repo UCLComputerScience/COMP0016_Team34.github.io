@@ -279,6 +279,6 @@ def show_links(request):
 
 def sms(request):
     r = MessagingResponse()
-    URL = "https://team34-comp0016-2020.azurewebsites.net/" #Change for new server
+    URL = "https://team34-comp0016-2020.azurewebsites.net/" #Change this value for a different server
     r.message('Thank you for messaging the Q-Vu System. Please click this link: ' + URL + ' to join the queue')
     return str(r)
