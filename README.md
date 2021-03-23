@@ -69,9 +69,37 @@ can be run by itself. This will use the settings saved from the first call and w
 
 
 
-### Useful links
+###### Useful links
 https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az_webapp_up <br>
 https://docs.microsoft.com/en-us/cli/azure/webapp/config?view=azure-cli-latest
+
+##### Twilio
+
+Twilio is used to manage the texting of patients when they want to join the queue. To set your own twilio key first you must make an account and get a number set up. Then go into the 'Active Numbers' tab scroll to the bottom and set the 'when a message comes in' url to be your azure url with /sms on the end
+
+![](readmeImages/TwilioSetUp.png)
+
+Then find your Account SID and Auth Token from twilio at the top of the dashboard in twilio. These need to be set as environment variables in django. This is different for running locally and on azure
+
+###### Running Locally
+Create a file Django/caller/secret.py containing the following:
+
+```python
+def setup():
+    import os
+    os.environ['TWILIO_ACCOUNT_SID'] = <ACCOUNT SID>
+    os.environ['TWILIO_AUTH_TOKEN']  = <AUTH TOKEN>
+```
+Changing the account sid and auth token to be the ones from twilio. This file will be ignored by git therefore it will not be pushed to an external repository eg GitHub
+
+###### Running on Azure
+On the azure portal (https://azure.microsoft.com/en-gb/) navigate into the page for the Django server then click on configuration. Then click "New Application Setting" and enter "TWILIO_ACCOUNT_SID" as the name and the SID from twilio as the value. Repeat with "TWILIO_AUTH_TOKEN" and the auth token from twilio. 
+![](readmeImages/Azure.png)
+
+
+When this is done the service should work as intended. To change the url of the queue being send change the value of ```URL``` in the ```sms``` function in ```views.py```
+![](readmeImages/TwilioWorking.jpeg)
+
 
 Q-Vu Queue Manager
 Copyright (C) 2021 Joshua Mukherjee, Tansheng Geng, Shaheer Ahmed
