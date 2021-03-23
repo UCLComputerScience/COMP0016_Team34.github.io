@@ -1,0 +1,27 @@
+This system, as-is, should only be holding dummy data and no sensitive or personally identifiable information.
+
+The software is an early proof of concept for development purposes and should not be used as-is in a live environment without further redevelopment and/or testing. No warranty is given and no real data or personally identifiable data should be store. Usage and its liabilities are your own.
+
+This project is licenced under a APGLv3 Licence
+
+Dependencies used:
+Googletrans - MIT license, https://github.com/ssut/py-googletrans
+whitenoise - MIT license, http://whitenoise.evans.io/en/stable/
+Django - Creative Commons Attribution-ShareAlike 3.0 Unported License, https://www.djangoproject.com/
+django-twilio - Public Domain, https://django-twilio.readthedocs.io/en/latest/
+googleapis / java-language - Apache Licence, https://github.com/googleapis/java-language
+GoogleCloudPlatform / cloud-opensource-java  - Apache Licence, https://github.com/GoogleCloudPlatform/cloud-opensource-java
+apache / maven-plugins - Apache Licence, https://github.com/apache/maven-plugins
+
+
+System developed by Joshua Mukherjee, Tansheng Geng and Shaheer Ahmed
+
+Clients: Dr Atia Rafiq from NHS, Dr Dean Mohamedally from UCL, Dr
+Elizabeth Krymalowski from RCGP, Prof John McNamara from IBM, Dr
+Stephanie Coughlin from NHS
+
+Supervisors and teaching assistants: Dr Dean Mohamedally, Dr Yun Fu, Dr
+Graham Roberts, Daniele Giunchi
+
+University College London
+

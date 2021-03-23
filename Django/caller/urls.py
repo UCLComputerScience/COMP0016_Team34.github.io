@@ -21,5 +21,7 @@ urlpatterns = [
     path('news/',views.get_news_screen,name="news"),
     path('warning/',views.get_warning_screen,name="warning"),
     path('cookieWarning/',views.get_cookie_warning_screen,name="Cookiewarning"),
-    path('links/',views.show_links,name='links')
+    path('links/',views.show_links,name='links'),
+    path('sms/',views.sms,name="sms")
+    
 ]

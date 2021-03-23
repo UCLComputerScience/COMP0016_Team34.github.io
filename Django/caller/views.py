@@ -4,6 +4,15 @@ from django.shortcuts import  render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
+try:
+    from .secret import setup
+    setup() #were on local machine
+except:
+    pass #Were on azure
+
+from django_twilio.decorators import twilio_view
+from twilio.twiml.messaging_response import MessagingResponse
+
 
 from .Caller import Caller
 from .Url_to_send import Url_to_send
@@ -181,7 +190,8 @@ def add_url(request):
             url = request.POST['url']
             caller_id = str(request.POST['id'])
             desc = request.POST['description']
-            urls_to_send[caller_id] = Url_to_send(url, desc)
+            text = request.POST['text']
+            urls_to_send[caller_id] = Url_to_send(url, desc,text)
         return HttpResponse(status=204)
     else:
          return HttpResponse(status=403)
@@ -259,8 +269,16 @@ def show_links(request):
         url = urls_to_send[caller_id]
         del urls_to_send[caller_id]
         del callers[caller_id]
-        return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
+        return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description(),"text":url.get_text()})
     
     del urls_to_send[caller_id]
     del callers[caller_id]
     return HttpResponseRedirect("/")
+
+@twilio_view
+
+def sms(request):
+    r = MessagingResponse()
+    URL = "https://team34-comp0016-2020.azurewebsites.net/" #Change this value for a different server
+    r.message('Thank you for messaging the Q-Vu System. Please click this link: ' + URL + ' to join the queue')
+    return str(r)

@@ -17,6 +17,7 @@
       <li><a href="requirements.html">Requirements</a></li>
       <li><a href="testing.html">Testing</a></li>
       <li><a href="evaluation.html">Evaluation</a></li>
+      <li><a href="legal.html">Legal</a></li>
   </ul>
 
 
@@ -31,24 +32,20 @@ Manual testing was used throughout the development of the system in order to ide
 
 <h2><b>Django Test</b></h2>
 
-The Django was tested using cURL
+The Django was tested using cURL for example,
 
+<code>
 <br>
-<br>
-curl -X POST https://team34-comp0016-2020.azurewebsites.net/login/ -F "username=JoshuaMukherjee" -F "password=SecurePass123"
 <br>
 curl -X POST https://team34-comp0016-2020.azurewebsites.net/login/ -F "username=ReceptionistTest" -F "password=APassword" -c cookies.txt
 <br>
-curl -X POST http://127.0.0.1:8000/login/ -F "username=JMukherjee" -F "password=SecurePass123"
+curl -X POST https://team34-comp0016-2020.azurewebsites.net/addURLID/ -F "id= 137504652159298206822370043863588881692" -F "url=google.com" -F "description=google" -b cookies.txt
 <br>
-curl -X POST https://team34-comp0016-2020.azurewebsites.net/addURLID/ -F "id= 137504652159298206822370043863588881692" -F "url=google.com" -F "description=google"
-<br>
-curl -X GET http://127.0.0.1:8000/loginTest/
-<br>
-curl -X post http://127.0.0.1:8000/addURLID/ -F "id= 322341125109735701830218798258570478493" -F "url=www.google.com" -F "description=google" -b cookies.txt
+curl -X GET https://team34-comp0016-2020.azurewebsites.net/loginTest/ -b cookies.txt
 <br><br>
-
-These commands were used to send data to the server to ensure the format is suitable for the server - this means it doesn't matter how data is sent by the client.
+</code>
+These commands were used to send data to the server to ensure the format is suitable for the server - this means it doesn't matter how data is sent by the client. The html returned can be captured and due to Djangos debug mode any errors were reported
+Similarly issues found when performing user tests, with ourselves, clients etc was another valuable way to find bugs and then fix them.
 
 <h2><b>Java server/client</b></h2>
 
