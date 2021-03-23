@@ -1,6 +1,7 @@
 package GUI.Pages;
 
 import GUI.Dialogues.ExceedLength;
+import GUI.Dialogues.InvalidFormat;
 import GUI.Dialogues.NoLink;
 import GUI.Widgets.Link;
 
@@ -8,7 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * The page where the user sets the links and their names
@@ -21,8 +26,11 @@ public class Configuration extends JFrame implements ActionListener {
     private final int STEP = 80;
     private final JButton save;
     private final JButton add;
+    private final JButton importCSV;
     //a list of links
     private final LinkedList<Link> links = new LinkedList<>();
+    //a CSV file
+    private File csv;
 
 
     public Configuration() {
@@ -30,7 +38,7 @@ public class Configuration extends JFrame implements ActionListener {
         hint.setText("Room Link Configurations");
         hint.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,30));
         hint.setForeground(new Color(0xFFFFFF));
-        hint.setBounds(20,8,500,60);
+        hint.setBounds(20,8,400,60);
 
         JSeparator separator = new JSeparator();
         separator.setBounds(10,70,755,5);
@@ -58,6 +66,18 @@ public class Configuration extends JFrame implements ActionListener {
         add.setBackground(Color.lightGray);
         add.addActionListener(this);
 
+        importCSV = new JButton();
+        importCSV.setText("Import CSV");
+        importCSV.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,35));
+        importCSV.setFocusable(false);
+        importCSV.setForeground(new Color(0xFFFFFF));
+        importCSV.setHorizontalAlignment(SwingConstants.CENTER);
+        importCSV.setVerticalAlignment(SwingConstants.CENTER);
+        importCSV.setBounds(430,10,300,50);
+        importCSV.setBackground(Color.BLACK);
+        importCSV.addActionListener(this);
+
+
         this.setUndecorated(true);
         this.setVisible(true);
         this.setLayout(null);
@@ -66,6 +86,7 @@ public class Configuration extends JFrame implements ActionListener {
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.add(save);
         this.add(add);
+        this.add(importCSV);
         this.add(hint);
         this.add(separator);
     }
@@ -78,7 +99,7 @@ public class Configuration extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == save) {
             if(links.size() == 0){
-                new NoLink();
+                NoLink.invokeNoLink();
                 return;
             }
             MainPage.timer.start();
@@ -87,18 +108,44 @@ public class Configuration extends JFrame implements ActionListener {
             this.setVisible(false);
         }else if(e.getSource() == add){
             if(links.size() == 10){
-                new ExceedLength();
+                ExceedLength.invokeExceedLength();
                 return;
             }
-            addLink();
+            addLink("","");
+        }else if(e.getSource() == importCSV){
+            JFileChooser fileChooser = new JFileChooser();
+            int choice = fileChooser.showOpenDialog(null);
+            if(choice != JFileChooser.APPROVE_OPTION){
+                return;
+            }
+            this.csv = fileChooser.getSelectedFile();
+            try{
+                if(!csv.getName().endsWith(".csv")){
+                    InvalidFormat.invokeInvalidFormat();
+                    return;
+                }
+                Scanner scanner = new Scanner(csv);
+                scanner.useDelimiter(System.lineSeparator()+"|,");
+                while(scanner.hasNext()){
+                    if(links.size() == 10){
+                        ExceedLength.invokeExceedLength();
+                        return;
+                    }
+                    addLink(scanner.next(),scanner.next());
+                }
+                scanner.close();
+            }catch (Exception exception){
+                InvalidFormat.invokeInvalidFormat();
+                exception.printStackTrace();
+            }
         }
     }
 
     /**
      * add a link
      */
-    private void addLink(){
-        Link link = new Link((links.size() + 1)*STEP);
+    private void addLink(String name, String address){
+        Link link = new Link((links.size() + 1)*STEP,name,address);
         links.add(link);
         this.add(link);
         this.repaint();

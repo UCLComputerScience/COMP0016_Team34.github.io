@@ -5,7 +5,7 @@ To run the client, go inside the "application" folder, and double click on "laun
 
 To view the handling records, go inside the "application\classes" folder, and open "records.txt"
 The records are in the following format:
-time|caller's description|receptionist's name|the name of the link sent to the caller
+time|caller's description|receptionist's name|the name of the link sent to the caller|the link's address|the message from the receptionist
 ==========================================================================================
 WARNING:
 The developer is NOT provided with a payed google account, and the developer is using his trial account to achieve

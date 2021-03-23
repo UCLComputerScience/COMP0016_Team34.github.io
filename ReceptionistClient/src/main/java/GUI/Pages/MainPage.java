@@ -80,33 +80,34 @@ public class MainPage extends JFrame implements ActionListener {
         waiting.setText("callers remaining");
         waiting.setBounds(70,70,400,55);
         waiting.setFont(new Font("Calibri", Font.BOLD  ,30));
-        waiting.setForeground(Color.BLACK);
+        waiting.setForeground(new Color(2,95,185));
 
         JLabel title = new JLabel();
         title.setText("Q-Vu System");
         title.setBounds(180,17,200,55);
         title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC ,30));
-        title.setForeground(new Color(0xFFFFFF));
+        title.setForeground(new Color(2,95,185));
 
         JLabel username = new JLabel();
         username.setText(userName);
         username.setBounds(580,10,300,55);
         username.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,20));
-        username.setForeground(new Color(0xFFFFFF));
+        username.setForeground(new Color(2,95,185));
 
         JLabel loggedinas = new JLabel();
         loggedinas.setText("Logged in as");
         loggedinas.setBounds(380,10,200,55);
         loggedinas.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,30));
-        loggedinas.setForeground(new Color(0xFFFFFF));
+        loggedinas.setForeground(new Color(2,95,185));
 
         JSeparator separator = new JSeparator();
         separator.setBounds(10,71,965,5);
+        separator.setForeground(new Color(2,95,185));
 
         numWaiting.setText(Integer.toString(callerNum));
         numWaiting.setBounds(10,63,60,55);
         numWaiting.setFont(new Font(Font.SANS_SERIF, Font.PLAIN ,30));
-        numWaiting.setForeground(Color.BLACK);
+        numWaiting.setForeground(new Color(2,95,185));
 
         ImageIcon logout = new ImageIcon(App.currentDirectory + "logout.jpg");
         logoutButton.setIcon(logout);
@@ -134,7 +135,7 @@ public class MainPage extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setResizable(false);
         this.setBounds(0,0,1000,1000);
-        this.getContentPane().setBackground(new Color(2, 95, 185));
+        this.getContentPane().setBackground(Color.white);
         this.add(nhsIcon);
         this.add(title);
         this.add(username);
@@ -213,7 +214,7 @@ public class MainPage extends JFrame implements ActionListener {
      */
     private void parse(String response){
         if(response.equals("connection error")){
-            new ConnectionError();
+            ConnectionError.invokeConnectionError();
             timer.stop();
             return;
         }
@@ -326,11 +327,11 @@ public class MainPage extends JFrame implements ActionListener {
      * @param link the link to be sent to the caller
      * @param description the name of the link
      */
-    public void send(String id, String link, String description) {
+    public void send(String id, String link, String description, String text) {
         try{
             link = link.replaceAll("https://", "");
             link = link.replaceAll("http://", "");
-            String info = "id=" + id + "&url=" + link + "&description=" + description;
+            String info = "id=" + id + "&url=" + link + "&description=" + description + "&text=" + text;
             URL obj = new URL(SEND_URL);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             connection.setDoOutput(true);
@@ -342,7 +343,7 @@ public class MainPage extends JFrame implements ActionListener {
             connection.getResponseCode();
         }catch (Exception e){
             e.printStackTrace();
-            new ConnectionError();
+            ConnectionError.invokeConnectionError();
         }
     }
 
@@ -369,10 +370,10 @@ public class MainPage extends JFrame implements ActionListener {
      * @param receptionist the receptionist's username
      * @param decision the name of the link sent to the caller
      */
-    public void record(String description, String receptionist, String decision)  {
+    public void record(String description, String receptionist, String decision, String link, String text)  {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            fileWriter.write(formatter.format(new Date()) + "|" + description + "|" + receptionist + "|" + decision + System.lineSeparator());
+            fileWriter.write(formatter.format(new Date()) + "|" + description + "|" + receptionist + "|" + decision + "|" + link + "|" + text + System.lineSeparator());
             fileWriter.flush();
         } catch (IOException e) {
             e.getMessage();
@@ -432,7 +433,7 @@ public class MainPage extends JFrame implements ActionListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            new ConnectionError();
+            ConnectionError.invokeConnectionError();
         }
         results.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
         return results;

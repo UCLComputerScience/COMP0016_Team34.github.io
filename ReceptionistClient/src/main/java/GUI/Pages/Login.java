@@ -1,6 +1,7 @@
 package GUI.Pages;
 
 import GUI.App;
+import GUI.Dialogues.AddMessage;
 import GUI.Dialogues.ConnectionError;
 import GUI.Dialogues.NeedHelp;
 import GUI.Dialogues.InvalidDetail;
@@ -39,54 +40,54 @@ public class Login extends JFrame implements ActionListener {
         title.setText("Q-Vu System");
         title.setBounds(185, 17, 350, 55);
         title.setFont(new Font("Calibri", Font.BOLD + Font.ITALIC, 50));
-        title.setForeground(new Color(0xFFFFFF));
+        title.setForeground(new Color(2,95,185));
 
         JLabel username = new JLabel();
-        username.setText("Username");
+        username.setText("Username:");
         username.setBounds(30, 180, 200, 35);
         username.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        username.setForeground(new Color(0xFFFFFF));
+        username.setForeground(new Color(2,95,185));
 
         JLabel password = new JLabel();
-        password.setText("Password");
+        password.setText("Password:");
         password.setBounds(30, 250, 200, 35);
         password.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        password.setForeground(new Color(0xFFFFFF));
+        password.setForeground(new Color(2,95,185));
 
         JLabel serverLabel = new JLabel();
-        serverLabel.setText("Enter the link of your server");
+        serverLabel.setText("Enter the link of your server:");
         serverLabel.setBounds(30, 80, 400, 35);
         serverLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        serverLabel.setForeground(new Color(0xFFFFFF));
+        serverLabel.setForeground(new Color(2,95,185));
 
         JSeparator separator = new JSeparator();
-        separator.setForeground(Color.white);
+        separator.setForeground(new Color(2,95,185));
         separator.setBounds(0, 165, 485, 5);
 
         linkInput = new JTextField();
         linkInput.setBounds(30, 115, 420, 35);
         linkInput.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        linkInput.setBackground(new Color(0x77A8E5));
-        linkInput.setForeground(new Color(0xFFFFFF));
-        linkInput.setCaretColor(new Color(0xFFFFFF));
+        linkInput.setBackground(Color.white);
+        linkInput.setForeground(new Color(2,95,185));
+        linkInput.setCaretColor(new Color(2,95,185));
 
         linkInput.setText("https://team34-comp0016-2020.azurewebsites.net");
 
         usernameInput = new JTextField();
         usernameInput.setBounds(30, 215, 420, 35);
         usernameInput.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        usernameInput.setBackground(new Color(0x77A8E5));
-        usernameInput.setForeground(new Color(0xFFFFFF));
-        usernameInput.setCaretColor(new Color(0xFFFFFF));
+        usernameInput.setBackground(Color.white);
+        usernameInput.setForeground(new Color(2,95,185));
+        usernameInput.setCaretColor(new Color(2,95,185));
 
         usernameInput.setText("ReceptionistTest");
 
         passwordInput = new JPasswordField();
         passwordInput.setBounds(30, 285, 420, 35);
         passwordInput.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        passwordInput.setBackground(new Color(0x77A8E5));
-        passwordInput.setForeground(new Color(0xFFFFFF));
-        passwordInput.setCaretColor(new Color(0xFFFFFF));
+        passwordInput.setBackground(Color.white);
+        passwordInput.setForeground(new Color(2,95,185));
+        passwordInput.setCaretColor(new Color(2,95,185));
 
         passwordInput.setText("APassword");
 
@@ -98,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
         loginButton.setHorizontalAlignment(SwingConstants.CENTER);
         loginButton.setVerticalAlignment(SwingConstants.CENTER);
         loginButton.setBounds(30, 350, 205, 50);
-        loginButton.setBackground(new Color(0x2C90EC));
+        loginButton.setBackground(new Color(2,95,185));
         loginButton.addActionListener(this);
 
         needhelpButton = new JButton();
@@ -109,7 +110,7 @@ public class Login extends JFrame implements ActionListener {
         needhelpButton.setHorizontalAlignment(SwingConstants.CENTER);
         needhelpButton.setVerticalAlignment(SwingConstants.CENTER);
         needhelpButton.setBounds(245, 350, 205, 50);
-        needhelpButton.setBackground(new Color(0x2C90EC));
+        needhelpButton.setBackground(new Color(2,95,185));
         needhelpButton.addActionListener(this);
 
         this.setTitle("Login");
@@ -118,7 +119,7 @@ public class Login extends JFrame implements ActionListener {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setIconImage(image.getImage());
-        this.getContentPane().setBackground(new Color(2, 95, 185));
+        this.getContentPane().setBackground(Color.white);
         this.setLayout(null);
         this.add(nhsIcon);
         this.add(title);
@@ -149,10 +150,10 @@ public class Login extends JFrame implements ActionListener {
             } else {
                 usernameInput.setText("");
                 passwordInput.setText("");
-                new InvalidDetail();
+                InvalidDetail.invokeInvalidDetail();
             }
         } else if (e.getSource() == needhelpButton) {
-            new NeedHelp();
+            NeedHelp.invokeNeedHelp();
         }
 
     }
@@ -192,7 +193,7 @@ public class Login extends JFrame implements ActionListener {
             return Boolean.parseBoolean(result.toLowerCase());
         } catch (Exception e) {
             e.printStackTrace();
-            new ConnectionError();
+            ConnectionError.invokeConnectionError();
         }
         return false;
     }

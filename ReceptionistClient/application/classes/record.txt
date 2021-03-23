@@ -1,0 +1,2 @@
+24/03/2021 02:28:02|I love cats|ReceptionistTest|google|www.google.com|I love dogs though
+24/03/2021 02:33:21|I want to eat sushi|ReceptionistTest|||go buy some
