@@ -271,7 +271,6 @@ def show_links(request):
         del callers[caller_id]
         url_message = url.get_url() if url.get_url() != "" else False
         text = url.get_text() if url.get_text() != "" else False
-        print(url_message,text)
         return render(request,"caller/links.html",{"sent_link":url_message,"description":url.get_description(),"text":text})
     
     del urls_to_send[caller_id]
