@@ -181,7 +181,8 @@ def add_url(request):
             url = request.POST['url']
             caller_id = str(request.POST['id'])
             desc = request.POST['description']
-            urls_to_send[caller_id] = Url_to_send(url, desc)
+            text = request.POST['text']
+            urls_to_send[caller_id] = Url_to_send(url, desc,text)
         return HttpResponse(status=204)
     else:
          return HttpResponse(status=403)
@@ -259,7 +260,7 @@ def show_links(request):
         url = urls_to_send[caller_id]
         del urls_to_send[caller_id]
         del callers[caller_id]
-        return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description()})
+        return render(request,"caller/links.html",{"sent_link":url.get_url(),"description":url.get_description(),"text":url.get_text()})
     
     del urls_to_send[caller_id]
     del callers[caller_id]
