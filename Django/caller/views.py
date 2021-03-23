@@ -11,7 +11,7 @@ except:
     pass #Were on azure
 
 from django_twilio.decorators import twilio_view
-from twilio import twiml
+from twilio.twiml.messaging_response import MessagingResponse
 
 
 from .Caller import Caller
@@ -278,7 +278,7 @@ def show_links(request):
 @twilio_view
 
 def sms(request):
-    r = twiml.Response()
+    r = MessagingResponse()
     URL = "https://team34-comp0016-2020.azurewebsites.net/" #Change for new server
     r.message('Thank you for messaging the Q-Vu System. Please click this link: ' + URL + ' to join the queue')
-    return r
+    return str(r)
