@@ -8,6 +8,7 @@ Dependencies used:
 Googletrans - MIT license, https://github.com/ssut/py-googletrans
 whitenoise - MIT license, http://whitenoise.evans.io/en/stable/
 Django - Creative Commons Attribution-ShareAlike 3.0 Unported License, https://www.djangoproject.com/
+django-twilio - Public Domain, https://django-twilio.readthedocs.io/en/latest/
 googleapis / java-language - Apache Licence, https://github.com/googleapis/java-language
 GoogleCloudPlatform / cloud-opensource-java  - Apache Licence, https://github.com/GoogleCloudPlatform/cloud-opensource-java
 apache / maven-plugins - Apache Licence, https://github.com/apache/maven-plugins
