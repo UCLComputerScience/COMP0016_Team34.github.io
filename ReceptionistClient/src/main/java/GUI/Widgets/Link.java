@@ -20,7 +20,7 @@ public class Link extends JPanel implements ActionListener {
      * create a new link object
      * @param y vertical value y of the link
      */
-    public Link(int y){
+    public Link(int y, String name, String address){
         this.yValue = y;
         
         JLabel nameLabel = new JLabel();
@@ -35,9 +35,11 @@ public class Link extends JPanel implements ActionListener {
 
         nameField.setBounds(120,3,550,30);
         nameField.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,22));
+        nameField.setText(name);
 
         linkField.setBounds(120,38,550,30);
         linkField.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,22));
+        linkField.setText(address);
 
         remove.setBounds(690,10,60,50);
         remove.setBorder(BorderFactory.createLineBorder(Color.darkGray));

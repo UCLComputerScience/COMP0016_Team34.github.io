@@ -4,10 +4,12 @@ GUI\Dialogues\ExceedLength.class
 GUI\Pages\MainPage$1.class
 GUI\Dialogues\NoLink.class
 GUI\Pages\Configuration.class
+GUI\Dialogues\AddMessage.class
 GUI\Widgets\Caller.class
 GUI\Dialogues\NeedHelp.class
 GUI\Pages\Login.class
 GUI\Widgets\Link.class
+GUI\Dialogues\InvalidFormat.class
 GUI\App.class
 GUI\Dialogues\ConnectionError.class
 GUI\Widgets\RoundButton.class

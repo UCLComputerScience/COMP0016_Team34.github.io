@@ -1,6 +1,7 @@
 package GUI.Widgets;
 
 import GUI.App;
+import GUI.Dialogues.AddMessage;
 import GUI.Pages.Login;
 
 import javax.swing.*;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 public class Caller extends JPanel implements ActionListener {
 
     //ui properties
+    private final AddMessage messageBox = new AddMessage(this);
     private final JEditorPane description = new JEditorPane();
     private final JButton send = new JButton();
+    private final JButton addMessage = new JButton();
     private final JButton neglect = new JButton();
     private final JTextArea name = new JTextArea();
     private final JTextArea dob = new JTextArea();
@@ -28,6 +31,8 @@ public class Caller extends JPanel implements ActionListener {
     private final String id;
     //the vertical value of the caller
     public int yValue;
+    //the message to the caller
+    private String message;
 
     /**
      * creating a caller
@@ -62,11 +67,18 @@ public class Caller extends JPanel implements ActionListener {
         this.description.setBackground(null);
 
         this.send.setBounds(830,85,120,30);
-        this.send.setBackground(Color.lightGray);
+        this.send.setBackground(Color.BLACK);
         this.send.setForeground(Color.white);
-        this.send.setText("send");
-        this.send.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,25));
+        this.send.setText("send link");
+        this.send.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,12));
         this.send.addActionListener(this);
+
+        this.addMessage.setBounds(830,53,120,30);
+        this.addMessage.setBackground(Color.BLACK);
+        this.addMessage.setForeground(Color.white);
+        this.addMessage.setText("add message");
+        this.addMessage.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,12));
+        this.addMessage.addActionListener(this);
 
         this.neglect.setBounds(940,0,20,20);
         this.neglect.setBorder(BorderFactory.createLineBorder(Color.darkGray));
@@ -74,17 +86,19 @@ public class Caller extends JPanel implements ActionListener {
         this.neglect.addActionListener(this);
 
         this.options = new JComboBox<>(Login.mainPage.configurationPage.names);
-        this.options.setBounds(830,50,120,30);
+        this.options.setBounds(830,20,120,30);
         this.options.setFont(new Font(Font.SANS_SERIF, Font.BOLD ,15));
 
         this.setVisible(true);
         this.setLayout(null);
         this.setBounds(10,yValue,960,120);
-        this.setBackground(new Color(0x72D8FF));
+        this.setBackground(Color.white);
+        this.setBorder(BorderFactory.createLineBorder(new Color(2,95,185)));
         this.add(this.name);
         this.add(this.dob);
         this.add(this.description);
         this.add(this.send);
+        this.add(this.addMessage);
         this.add(this.neglect);
         this.add(this.options);
     }
@@ -96,13 +110,25 @@ public class Caller extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.send){
-            Login.mainPage.send(this.id,Login.mainPage.configurationPage.linkValues[options.getSelectedIndex()],Login.mainPage.configurationPage.names[options.getSelectedIndex()]);
-            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),(String) options.getSelectedItem());
+            Login.mainPage.send(this.id,Login.mainPage.configurationPage.linkValues[options.getSelectedIndex()],Login.mainPage.configurationPage.names[options.getSelectedIndex()],this.message);
+            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),(String) options.getSelectedItem(),Login.mainPage.configurationPage.linkValues[options.getSelectedIndex()],this.message);
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }else if(e.getSource() == this.neglect){
-            Login.mainPage.send(this.id,"","This is a warning. Please don't waste public resources");
-            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"prank");
+            Login.mainPage.send(this.id,"","","This is a warning. Please don't waste public resources");
+            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"prank","","");
+            Login.mainPage.remove(this);
+            Login.mainPage.update(this.id);
+        }else if(e.getSource() == this.addMessage){
+            this.messageBox.setVisible(true);
+        }else if(e.getSource() == this.messageBox.saveAndClose){
+            this.messageBox.setVisible(false);
+            this.message = this.messageBox.line2.getText();
+        }else if(e.getSource() == this.messageBox.sendWithoutLink){
+            this.messageBox.setVisible(false);
+            this.message = this.messageBox.line2.getText();
+            Login.mainPage.send(this.id,"","",this.message);
+            Login.mainPage.record(this.descriptionWithoutFormat,Login.mainPage.getReceptionist(),"","",this.message);
             Login.mainPage.remove(this);
             Login.mainPage.update(this.id);
         }
