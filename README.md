@@ -8,6 +8,9 @@
 Before you start: 
 The UI of this client is developed on a Windows machine, and is only guaranteed to work fine with windows.
 
+To deploy the client:
+To use the client, one only needs to download the folder "ReceptionistClient\application". All libraries and dependencies are provided in that folder.
+
 To run the client:
 Go inside the "ReceptionistClient\application" folder, and double click on "launchClient(.vbs)".
 
