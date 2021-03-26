@@ -12,4 +12,4 @@ class IDform(forms.Form):
     id = forms.CharField(label='id')
 
 class DescForm(forms.Form):
-    desc = forms.CharField(label="Description  ", widget=forms.Textarea(attrs={'cols': 80, 'rows': 10}))
+    desc = forms.CharField(label="Description  ", widget=forms.Textarea(attrs={'cols': 80, 'rows': 10, 'padding': 20}))
