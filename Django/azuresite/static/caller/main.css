@@ -18,6 +18,11 @@ body{
 	color:white;
 }
 
+.myfieldclass {
+
+	width: 200px;
+}
+
 .headingtext {
 	background-color: #005eb8;
 	color: #FFFFFF;
