@@ -3,7 +3,7 @@ from .models import *
 
 
 class Dataform(forms.Form):
-    firstname = forms.CharField(label='Firstname', widget=forms.Form(attrs={'class':'introtext'}))
+    firstname = forms.CharField(label='Firstname')
     
     surname = forms.CharField(label='Surname  ')
     dob = forms.CharField(label='Date of Birth (DD/MM/YYYY)  ')
