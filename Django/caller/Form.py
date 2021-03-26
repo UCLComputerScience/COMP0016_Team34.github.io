@@ -3,7 +3,7 @@ from .models import *
 
 
 class Dataform(forms.Form):
-    firstname = forms.CharField(widget=forms.Textarea(attrs={'id': 'first name', 'size': 'myfieldclass'}))
+    firstname = forms.CharField(label='Firstname', widget=forms.Textarea(attrs={'class':'introtext'}))
     
     surname = forms.CharField(label='Surname  ')
     dob = forms.CharField(label='Date of Birth (DD/MM/YYYY)  ')
