@@ -1,8 +1,10 @@
 from django import forms
+from .models import *
 
 
 class Dataform(forms.Form):
-    firstname = forms.CharField(label='Firstname  ', max_length=100)
+    firstname = forms.CharField(widget=forms.TextInput(attrs={'class' : 'myfieldclass'}))
+    
     surname = forms.CharField(label='Surname  ')
     dob = forms.CharField(label='Date of Birth (DD/MM/YYYY)  ')
 
