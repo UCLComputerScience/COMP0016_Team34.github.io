@@ -75,7 +75,7 @@
 						
 						<form action="/processInfo/" method = "post">
 							{% csrf_token %}
-    						<label for = "{{form }}" style="size: 200px;">{{ form }}</label>
+    						<label for = "{{ form.firstname.id_for_label }}" style="size: 200px;">{{ form.firstname.label }}</label>
     						<input type="submit" value="Submit" class="button">
 						</form>
 					</div>
